@@ -1,3 +1,6 @@
+#### 24.12.26
+* Changelog wird nun auf der Startseite angezeigt
+---
 * Menu kann aufgeswiped werden
 * Verlinkungen auf der Info-Seite gefixt
 * Senden von Log-Dateien funktioniert wieder

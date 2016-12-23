@@ -1,3 +1,21 @@
-<ion-view title="Start" id="page2">
-  <ion-content padding="true" class="has-header"></ion-content>
+<ion-view title="Start">
+  <ion-content padding="true" class="has-header">
+
+  	<ion-list>
+  	  <div ng-repeat="l in changelog">
+  	  	<ion-item  class="c-list-item item-icon-left" ng-class="l.class" padding="true" ng-click="l.link && open(l)" ng-if="l.icon">
+			<div class="row">
+          		<div class="col col-10"><i class="icon {{l.icon}}"></i></div>
+          		<div class="col item-text-wrap">{{l.text}}</div>
+        	</div>
+      	</ion-item>
+
+      	<ion-item class="item-divider" ng-hide="l.icon">{{l.text}}</ion-item>
+
+  	  </div>
+
+      
+    </ion-list>
+
+  </ion-content>
 </ion-view>

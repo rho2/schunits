@@ -1,7 +1,24 @@
 angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ionic-datepicker'])
 
-.controller('startCtrl', function($scope, $stateParams) {
+.controller('startCtrl', function($scope, $http, $state) {
+    $scope.$on("$ionicView.loaded", function(event, data){
+        $http({
+                method: 'GET',
+                url: 'https://schunits.rho2.eu/changelog.json',
+            }).then(function(response) {
+                console.log(response)
+                $scope.changelog = response.data
+            });
+    });
 
+    $scope.open = function(l){
+        if(l.isURL){
+            window.open(l.link, '_system', 'location=yes');
+        }
+        else{
+            goTo($state, l.link);
+        }
+    }
 })
 
 .controller('stundenplanHeuteCtrl', function($scope, $state, $ionicLoading, $ionicViewSwitcher, $ionicSlideBoxDelegate, $ionicPopover, LoggingService, TimetableService, ionicToast, ionicDatePicker) {
@@ -10,7 +27,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     $scope.dates = '' + $scope.date.getFullYear() + ('0' + ($scope.date.getMonth() + 1)).slice(-2) + ('0' + $scope.date.getDate()).slice(-2);
     $scope.t = '1';
     $scope.typ = 5;
-    // $scope.timegrid = JSON.parse(localStorage.timegrid);
     $scope.full = true;
 
 	$scope.$on("$ionicView.loaded", function(event, data){
