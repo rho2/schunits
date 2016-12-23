@@ -1,0 +1,11 @@
+<ion-popover-view class="fit">
+	<ion-content>
+    	<div class="list">
+    		
+    		<div class="item" ng-click="openDatePicker(0)">Von: {{ dates[0].s }}</div>
+    		<div class="item" ng-click="openDatePicker(1)">Bis: {{ dates[1].s }}</div>
+			<div class="item" ng-click="openSelect()">{{choices[choice.value]}}</div>
+
+     	</div>
+    </ion-content>
+</ion-popover-view>

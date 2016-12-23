@@ -1,0 +1,23 @@
+<ion-view title="Klassendienste">
+
+  <footerc></footerc>
+  
+  <ion-content padding="true" class="has-header">
+
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()">
+    </ion-refresher>
+  
+    <ion-list>
+      <ion-item ng-repeat="service in data" class="c-list-item item-icon-left" padding="true" ng-click="serviceClick(service)">
+        
+        <div class="row ">
+          <div class="col col-20"><i class="icon {{service.icon}}"></i></div>
+          <div class="col {{ service.name == me  ? 'calm' : 'dark' }}">{{service.name}}</div>
+          <div class="col positive tar">{{service.time}}</div>
+        </div>
+
+    </ion-list>
+    <div class="h50"></div>
+  </ion-content>
+
+</ion-view>

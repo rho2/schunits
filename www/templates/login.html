@@ -1,0 +1,37 @@
+<ion-view title="Login" id="page15">
+  <ion-content padding="true" class="has-header">
+
+    <form id="login-form1" class="list">
+
+      <ion-list id="login-list3">
+
+        <label class="item item-input" id="loginSchool">
+          <input type="text" placeholder="Schulname" ng-model="data.school">
+        </label>
+
+        <label class="item item-input" id="loginUser">
+          <input type="text" placeholder="Benutzername" ng-model="data.user">
+        </label>
+
+        <label class="item item-input" id="loginPass">
+          <input type="password" placeholder="Passwort" ng-model="data.password">
+        </label>
+
+      </ion-list>
+
+      <div class="spacer" style="height: 40px;"></div>
+
+      <div class="row">
+          <div class="col">
+            <button id="login-button1" class="button button-assertive button-block" ng-click="goBack()">Abbrechen</button>
+          </div>
+
+          <div class="col">
+            <button id="login-button1" class="button button-balanced button-block" ng-click="login()">Anmelden</button>
+          </div>
+      </div>
+
+    </form>
+
+  </ion-content>
+</ion-view>

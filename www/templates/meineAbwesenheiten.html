@@ -1,0 +1,29 @@
+<ion-view title="Meine Abwesenheiten" id="page9">
+  
+  <footerc></footerc>
+
+  <ion-content padding="true" class="has-header">
+
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()">
+    </ion-refresher>
+  
+  	<ion-list>
+      <ion-item ng-repeat="absence in data" class="c-list-item " padding="true" ng-click="absenceClick(absence)">
+      		
+          <div class="row ">
+            <div class="col calm ">{{absence.start}} - {{absence.end}}</div>
+            <div class="col positive tar">{{absence.start_time}} - {{absence.end_time}}</div>
+          </div>
+
+          <div class="row">
+  				  <div class="col tal">{{absence.reason}}</div>
+  				  <div class="col tac">{{absence.status}}</div>
+            <div class="col tar">{{absence.text || '-'}}</div>
+  			  </div>
+
+  			
+    </ion-list>
+    <div class="h50"></div>
+  </ion-content>
+
+</ion-view>

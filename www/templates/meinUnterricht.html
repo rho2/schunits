@@ -1,0 +1,23 @@
+<ion-view title="Mein Unterricht">
+
+    <footerc></footerc>
+
+    <ion-content padding="true">
+
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()">
+        </ion-refresher>
+
+        <ion-list padding="true">
+            <ion-item ng-repeat="lesson in data" class="c-list-item " padding="true" ng-click="lessonClick(lesson)">
+
+                <div class="row">
+                    <div class="col col-90">{{ lesson.subject || '-'}}</div>
+                    <div class="col col-10 royal">{{ lesson.teacher || '-' }}</div>
+                </div>
+
+            </ion-item>
+        </ion-list>
+        <div class="h50"></div>
+    </ion-content>
+
+</ion-view>

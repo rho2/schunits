@@ -1,0 +1,32 @@
+<ion-view title="Sprechstunde">
+
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>
+    </ion-nav-buttons>
+
+    <ion-content padding="true">
+        <ion-list>
+
+            <ion-item class="item-icon-left royal">
+                <i class="icon ion-ios-person"></i> {{ hour.teacher }}
+            </ion-item>
+
+            <ion-item class="item-icon-left" href="mailto:{{ hour.mail }}">
+                <i class="icon ion-ios-email-outline"></i> {{ hour.mail }}
+            </ion-item>
+
+            <ion-item class="item-icon-left calm">
+                <i class="icon ion-ios-calendar-outline"></i> {{ hour.day }}, {{ hour.date }}
+            </ion-item>
+
+            <ion-item class="item-icon-left positive">
+                <i class="icon ion-ios-clock-outline"></i> {{ hour.start }} - {{ hour.end }}
+            </ion-item>
+
+
+        </ion-list>
+        <div class="h10"></div>
+    </ion-content>
+
+
+</ion-view>

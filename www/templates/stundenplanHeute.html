@@ -1,0 +1,169 @@
+<ion-view title="Stundenplan Heute">
+
+    <ion-nav-title> {{ d.currentPage || date || 'Stundenplan Heute'}}</ion-nav-title>
+    <ion-nav-buttons class="has-header" side="right">
+    </ion-nav-buttons>
+
+    <div class="bar bar-footer row bw text-right">
+        <div style="width: 12%">
+            <button class="button button-icon icon ion-ios-arrow-back" ng-click="prevWeek()"></button>
+        </div>
+
+        <div style="width: 12%">
+            <button class="button button-icon icon ion-calendar" ng-click="openDatePicker()"></button>
+        </div>
+
+        <div style="width: 12%">
+            <button class="button button-icon icon ion-ios-arrow-forward" ng-click="nextWeek()"></button>
+        </div>
+
+        <div style="width: 30%"></div>
+
+        <div style="width: 15%">
+            <button class="button button-icon icon {{ (typ == 5) ?   'ion-ios-person': 'ion-ios-people'}} right" ng-click="change()"></button>
+        </div>
+
+        <div style="width: 15%">
+            <button class="button button-icon icon {{ full ? 'ion-grid':'ion-navicon-round' }}  " ng-click="toggle()"></button>
+        </div>
+    </div>
+
+    <ion-content class="has-header no-padding">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()"></ion-refresher>
+
+           <!-- singe day view -->
+            <ion-slides options="d.sliderOptions" slider="d.sliderDelegate" ng-if="!full">
+
+                <ion-slide-page ng-repeat="(day, per) in data">
+            
+                    <ion-scroll zooming="true" direction="y" style=" height: 100%">
+                        <ion-list class="no-padding">
+                            <ion-item class="mm c-list-item no-padding" ng-if="!$first" ng-repeat="lessons in per track by $index">
+
+                                <div class="row no-padding">
+                                    <div class="col no-padding ovh bl " ng-repeat="lesson in lessons" ng-click="lesson.cellState && doClick(lesson)">
+                                        <div class="{{lesson.cellState || 'HOUR-FREE' }}" ng-hide="lesson.empty">
+
+                                            <div class="row">
+                                                <div class="col col-33 ovh" style="color: {{lesson.foreColor}};background-color: {{lesson.backColor}};" ng-if="lesson.subject"> {{lesson.subject}}</div>
+                                                <div class="col col-66 tac ovh">{{lesson.teacher}}</div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col col-33 ovh" ng-if="lesson.room">{{lesson.room}}</div>
+                                                <div class="col col-66 tac ovh">{{lesson.class_name }}</div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="HOUR-FREE" ng-show="lesson.empty">
+                                            <div class="row">
+                                                <div class="col">&nbsp;</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">&nbsp;</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </ion-item>
+                        </ion-list>
+
+                        <div class="h50">{{gts()}}</div>
+                    </ion-scroll>
+                </ion-slide-page>
+
+            </ion-slides>
+
+
+            <!-- weekly view -->
+
+            <div class="row no-padding " ng-if="full">
+                <div class="col no-padding ovh col-10 bl">
+                &nbsp;
+                &nbsp;
+                </div>
+
+                <div class="col no-padding ovh bl tac" ng-repeat="(day, per) in data" >
+                    <span class="ts"> {{shortDateString(day)}} </span>
+                </div>
+
+            </div>
+
+            <div class="row no-padding" ng-if="full" on-swipe-right="onSwipeRight()" on-swipe-left="onSwipeLeft()">
+
+            <div class="col no-padding ovh col-10">
+                <ion-list>
+                    <ion-item class="mm c-list-item no-padding no-margin" ng-repeat="t in timegrid">
+                        <div class="row no-padding">
+                            <div class="col no-padding ovh bl">
+                                <div class="row ts">
+                                    <span class="ma">{{ t.name || '&nbsp;'}}</span>
+                                    
+                                </div>
+                                <div class="row tss">
+                                    <span class="ma">{{ t.startTime.toString().slice(0, -2) + ":" + t.startTime.toString().slice(-2) || '&nbsp;'}}</span>
+                                </div>
+                                <div class="row tss">
+                                    <span class="ma">{{ t.endTime.toString().slice(0, -2) + ":" + t.endTime.toString().slice(-2) || '&nbsp;'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+            <div class="col no-padding ovh" ng-repeat="(day, per) in data" >
+                <ion-list>
+                    <ion-item class="mm c-list-item no-padding no-margin " ng-if="!$first" ng-repeat="lessons in per track by $index">
+
+                        <div class="row no-padding">
+                            <div class="col no-padding ovh bl" ng-repeat="lesson in lessons" ng-click="lesson.cellState && doClick(lesson)">
+                                
+                                <div class="{{lesson.cellState || 'HOUR-FREE' }}" ng-hide="lesson.empty">
+
+                                    <div class="row ts">
+                                        <div style="color: {{lesson.foreColor}};background-color: {{lesson.backColor}}; " class="ts ma"> {{lesson.subject || '&nbsp;'}}</div>
+                                    </div>
+                               
+                                    <div class="row ts">
+                                        <span class="ma">{{lesson.room || '&nbsp;'}}</span>
+                                    </div>
+
+                                    
+                                    <div class="row ts">
+                                        <span class="ma">{{lesson.e[2][0].name || '&nbsp;'}}</span>                                        
+                                    </div>
+                                
+                                
+
+                                </div>
+
+                                <div class="HOUR-FREE" ng-show="lesson.empty">
+                                    <div class="row ts">
+                                       &nbsp;
+                                    </div>
+                                    <div class="row ts">
+                                       &nbsp;
+                                    </div>
+                                    <div class="row ts">
+                                       &nbsp;
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </ion-item>
+                </ion-list>
+                
+            </div>
+            <div class="h10"></div>
+        </div>
+
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,35 @@
+<ion-view title="Hausaufgaben">
+
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>
+    </ion-nav-buttons>
+
+    <ion-content padding="true">
+        <ion-list>
+
+            <ion-item class="item-icon-left calm">
+                <i class="icon ion-ios-calendar-outline "></i> {{homework.start}}
+            </ion-item>
+        
+            <ion-item class="item-icon-left positive">
+                <i class="icon ion-ios-calendar-outline "></i> {{homework.end}}
+            </ion-item>
+        
+            <ion-item class="item-icon-left royal">
+                <i class="icon ion-ios-box-outline"></i> {{homework.subject}}
+            </ion-item>
+        
+            <ion-item class="item-icon-left">
+                <i class="icon ion-ios-person"></i> {{homework.teacher}}
+            </ion-item>
+        
+            <ion-item class="item-icon-left item-text-wrap">
+                <i class="icon ion-ios-list-outline"></i> {{homework.text}}
+            </ion-item>
+
+        </ion-list>
+        <div class="h10"></div>
+    </ion-content>
+
+
+</ion-view>

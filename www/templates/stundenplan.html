@@ -1,0 +1,85 @@
+<ion-view title="Stundenplan">
+
+	<ion-nav-title> {{dates || 'Stundenplan'}}</ion-nav-title>
+    <ion-nav-buttons class="has-header" side="right">
+        <button class="button button-icon ion-ios-more" ng-click="popover.show($event)"></button>
+    </ion-nav-buttons>
+
+    <ion-content class="has-header no-padding">
+
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()"></ion-refresher>
+
+        <div class="row">
+
+        	<div class="col no-padding ovh col-10">
+        		<ion-list>
+        			<ion-item class="mm c-list-item no-padding no-margin" ng-repeat="t in timegrid">
+        				<div class="row no-padding">
+        					<div class="col no-padding ovh bl">
+        						<div class="row ts">
+        							<span class="ma">{{ t.name || '&nbsp;'}}</span>
+                            	    
+                            	</div>
+                            	<div class="row tss">
+                            	    <span class="ma">{{ t.startTime.toString().slice(0, -2) + ":" + t.startTime.toString().slice(-2) || '&nbsp;'}}</span>
+                            	</div>
+                            	<div class="row tss">
+                            	    <span class="ma">{{ t.endTime.toString().slice(0, -2) + ":" + t.endTime.toString().slice(-2) || '&nbsp;'}}</span>
+                            	</div>
+                            </div>
+                        </div>
+        			</ion-item>
+        		</ion-list>
+        	</div>
+
+            <div class="col no-padding ovh" ng-repeat="(day, per) in data">
+                <ion-list>
+                    <ion-item class="mm c-list-item no-padding no-margin" ng-if="!$first" ng-repeat="lessons in per track by $index">
+
+                        <div class="row no-padding">
+                            <div class="col no-padding ovh bl" ng-repeat="lesson in lessons" ng-click="lesson.cellState && doClick(lesson)">
+                                
+                                <div class="{{lesson.cellState || 'HOUR-FREE' }}" ng-hide="lesson.empty">
+
+                                    <div class="row ts">
+                                        <div style="color: {{lesson.foreColor}};background-color: {{lesson.backColor}}; " ng-if="lesson.subject" class="ts ma"> {{lesson.subject}}</div>
+                                    </div>
+                               
+                                    <div class="row ts">
+                                        <span class="ma">{{lesson.room}}</span>
+                                    </div>
+
+                                    
+                                    <div class="row ts">
+                                        <span class="ma">{{lesson.e[2][0].name}}</span>                                        
+                                    </div>
+                                
+                                
+
+                                </div>
+
+                                <div class="HOUR-FREE" ng-show="lesson.empty">
+                                    <div class="row ts">
+                                       &nbsp;
+                                    </div>
+                                    <div class="row ts">
+                                       &nbsp;
+                                    </div>
+                                    <div class="row ts">
+                                       &nbsp;
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </ion-item>
+                </ion-list>
+                
+            </div>
+            <div class="h10"></div>
+        </div>
+       
+
+    </ion-content>
+</ion-view>

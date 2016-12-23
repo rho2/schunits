@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+    <script src="lib/filelogger/dist/filelogger.min.js"></script>
+
+    <script src="cordova.js"></script>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/routes.js"></script>
+
+    <script src="js/directives.js"></script>
+    <script src="js/services.js"></script>
+     <script src="lib/ionic-toast/dist/ionic-toast.bundle.min.js"></script>
+     <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
+     
+    <!-- Only required for Tab projects w/ pages in multiple tabs 
+    <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
+    -->
+
+</head>
+
+<body ng-app="app" >
+    <div>
+        <ion-side-menus  >
+
+            <ion-side-menu-content drag-content="true">
+                <ion-nav-bar class="bar-stable" id='navbar'>
+                    
+                    <ion-nav-buttons side="left">
+                        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+                    </ion-nav-buttons>
+                    
+                </ion-nav-bar>
+
+                <ion-nav-view>
+                    
+                </ion-nav-view>
+            </ion-side-menu-content>
+
+            <ion-side-menu side="left" drag-content="false">
+                <ion-header-bar class="bar-stable">
+                    <div class="title">Menu</div>
+                </ion-header-bar>
+
+                <ion-content ng-controller="menuCtrl" padding="false" class="side-menu-left has-header " drag-content="false">
+                    <ion-list  >
+
+                        <ion-item class="item-icon-left" " ui-sref="startseite.start"  menu-close="">
+                            <i class="icon ion-ios-home"></i>Start
+                        </ion-item>
+
+
+                        <ion-item class="item-icon-left royal"  ui-sref="sprechstunden" menu-close="">
+                            <i class="icon ion-ios-telephone"></i>Sprechstunden
+                        </ion-item>
+
+                        <ion-item class="item-icon-left royal"  ui-sref="startseite.stundenplanHeute" menu-close="" >
+                            <i class="icon ion-ios-calendar-outline"></i>Stundenplan
+                        </ion-item>
+
+                        <ion-item class="item-icon-left positive"  ui-sref="meinUnterricht" menu-close="" >
+                            <i class="icon ion-ios-bookmarks"></i>Mein Unterricht
+                        </ion-item>
+
+                        <ion-item class="item-icon-left positive" ui-sref="unterrichtSchuler" menu-close="" >
+                            <i class="icon ion-ios-bookmarks"></i>Unterricht Schüler
+                        </ion-item>
+
+                        <ion-item class="item-icon-left positive" ui-sref="startseite.prufungen" menu-close="" >
+                            <i class="icon ion-ios-bookmarks"></i>Prüfungen
+                        </ion-item>
+
+                        <ion-item class="item-icon-left positive" ui-sref="tagesunterrichtKlassen" menu-close="" >
+                            <i class="icon ion-ios-bookmarks"></i>Tagesunterricht Klassen
+                        </ion-item>
+
+
+                        <ion-item class="item-icon-left calm"  ui-sref="meineAbwesenheiten" menu-close="" >
+                            <i class="icon ion-ios-flag"></i>Meine Abwesenheiten
+                        </ion-item>
+
+                        <ion-item class="item-icon-left calm"  ui-sref="fehlzeiten" menu-close="" >
+                            <i class="icon ion-ios-flag"></i>Fehlzeiten
+                        </ion-item>
+
+                        <ion-item class="item-icon-left calm"  ui-sref="befreiungen" menu-close="" >
+                            <i class="icon ion-ios-flag"></i>Befreiungen
+                        </ion-item>
+
+
+                        <ion-item class="item-icon-left balanced" ui-sref="startseite.hausaufgaben" menu-close="" >
+                            <i class="icon ion-ios-book"></i>Hausaufgaben
+                        </ion-item>
+
+                        <ion-item class="item-icon-left balanced" ui-sref="klassenbucheintrage" menu-close="" >
+                            <i class="icon ion-ios-book"></i>Klassenbucheinträge
+                        </ion-item>
+
+                        <ion-item class="item-icon-left balanced" ui-sref="klassendienste" menu-close="" >
+                            <i class="icon ion-ios-book"></i>Klassendienste
+                        </ion-item>
+
+
+                        <ion-item class="item-icon-left" ui-sref="sonstiges" menu-close="" >
+                            <i class="icon ion-cube"></i>Sonstiges
+                        </ion-item>
+
+                        <ion-item class="item-icon-left" ui-sref="einstellungen" menu-close="" >
+                            <i class="icon ion-ios-gear"></i>Einstellungen
+                        </ion-item>
+
+                        <ion-item class="item-icon-left" ui-sref="info" menu-close="" >
+                            <i class="icon ion-ios-lightbulb"></i>&Uuml;ber
+                        </ion-item>
+                    </ion-list>
+                </ion-content>
+            </ion-side-menu>
+
+        </ion-side-menus>
+    </div>
+</body>
+
+</html>

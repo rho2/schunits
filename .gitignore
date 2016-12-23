@@ -1,0 +1,8 @@
+node_modules/
+platforms/
+plugins/
+www/lib/
+temp/
+*.DS_Store
+*.log
+*.swp

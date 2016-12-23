@@ -1,0 +1,58 @@
+<ion-view id="page13" ">
+<ion-nav-title style="color: {{lesson.foreColor}} ">{{lesson.subject}}</ion-nav-title>
+  <ion-nav-buttons side="left " >
+    <button class="button button-icon icon ion-ios-arrow-back " ng-click="goBack() " style="color: {{lesson.foreColor}}!important "></button>
+  </ion-nav-buttons>
+
+
+  
+	<ion-content padding="true ">
+	<ion-list>
+		 <ion-item class="item-icon-left ">
+			<i class="icon ion-ios-person "></i>
+			{{lesson.e[2][0].longName}}, {{lesson.e[2][0].forename}} ({{lesson.e[2][0].name}})
+			</ion-item>
+
+          <ion-item ng-click="toggleClasses() " class="item-icon-left ">
+              <i class="icon {{showClasses ? 'ion-ios-minus-empty' : 'ion-ios-people'}} "></i>{{lesson.class_name}}
+          </ion-item>
+          <ion-item ng-repeat="cl in lesson.e[1] " class="item-icon-left item-text-wrap " ng-show="showClasses ">
+            <i class="icon ion-ios-people "></i> {{cl.longName || '-'}} ({{cl.name}})
+          </ion-item>
+
+          <ion-item class="item-icon-left " ng-if="lesson.studentGroup ">
+			<i class="icon ion-ios-people-outline "></i>
+			{{lesson.studentGroup }}
+		</ion-item>
+
+		<ion-item class="item-icon-left ">
+			<i class="icon ion-ios-box-outline "></i>
+			{{lesson.e[3][0].longName}} ({{lesson.e[3][0].name}})
+		</ion-item>
+
+		<ion-item ng-click="toggleRooms() " class="item-icon-left ">
+              <i class="icon {{showRooms ? 'ion-ios-minus-empty' : 'ion-ios-location-outline'}} "></i>{{lesson.room}}
+          </ion-item>
+          <ion-item ng-repeat="cl in lesson.e[4] " class="item-icon-left item-text-wrap " ng-show="showRooms ">
+            <i class="icon ion-ios-location-outline "></i> {{cl.longName || '-'}} ({{cl.name}})
+          </ion-item>
+
+
+          <ion-item class="item-icon-left ">
+			<i class="icon ion-ios-clock-outline "></i>{{lesson.start}} - {{lesson.end}}
+		</ion-item>
+
+		<ion-item class="item-icon-left item-text-wrap " ng-if="lesson.lessonText ">
+			<i class="icon ion-ios-list-outline "></i>
+			{{lesson.lessonText}}
+		</ion-item>
+
+		
+
+	</ion-list>
+<div class="h10 "></div>
+		
+  </ion-content>
+
+
+</ion-view>

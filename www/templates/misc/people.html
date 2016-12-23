@@ -1,0 +1,19 @@
+<ion-view title="Sch&uuml;ler/Lehrer">
+
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>
+    </ion-nav-buttons>
+
+    <ion-content padding="true">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()"></ion-refresher>
+
+        <ion-list padding="true">
+            <ion-item ng-repeat="person in data" class="c-list-item " padding="true">
+                <span class="{{ person.roleId == 5  ? 'calm' : 'royal'}}">{{ person.label }}</span>
+            </ion-item>
+        </ion-list>
+
+        <div class="h10"></div>
+    </ion-content>
+
+</ion-view>

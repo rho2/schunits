@@ -1,0 +1,9 @@
+<ion-popover-view class="fit">
+	<ion-content>
+    	<div class="list">
+    		<ion-radio ng-model="typ" ng-change="change(1)" ng-value="1">Klasse</ion-radio>
+			<ion-radio ng-model="typ" ng-change="change(5)" ng-value="5">Sch&uuml;ler</ion-radio>
+    		<div class="item" ng-click="openDatePicker()">Woche vom: {{ dates }}</div>
+     	</div>
+    </ion-content>
+</ion-popover-view>

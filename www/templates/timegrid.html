@@ -1,0 +1,28 @@
+<ion-view>
+
+<ion-nav-title>Timegrid</ion-nav-title>
+  <ion-nav-buttons side="left" >
+    <button class="button button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>
+  </ion-nav-buttons>
+
+   <ion-nav-buttons side="right" >
+    <button class="button button-icon icon ion-ios-arrow-forward" ng-click="goMain()"></button>
+  </ion-nav-buttons>
+
+
+	<ion-content padding="true" >
+		<ion-item  ng-repeat="unit in data" class="no-padding">
+
+		<div class="row ">
+			<div class="col col-20 tac g">{{unit.name}}</div>
+			<div class="col g" ng-repeat="a in days | limitTo: ad">1</div>
+
+		</div>
+  		</ion-item >
+
+	<div class="h10"></div>
+
+  </ion-content>
+
+
+</ion-view>

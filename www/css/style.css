@@ -1,0 +1,130 @@
+.c-list-item{
+	/*padding  - right */
+	padding: 4px 8px 4px 12px !important; 
+	font-size: 15px;
+}
+
+.popup-head{
+	display: none;
+}
+
+.trans{
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.bw{
+	background-color: rgba(255, 255, 255, .5);
+}
+
+.no-padding{
+	padding: 0px 0px 0px 0px !important; 
+}
+
+.no-margin{
+	margin: 0px 0px 0px 0px !important; 
+}
+
+.b1{
+	background-color: rgba(229, 229, 229, 0.6) !important;
+}
+
+.ts{
+	font-size: 80% !important;
+}
+
+.tss{
+	font-size: 60% !important;
+}
+
+.c-list-text{
+	overflow: hidden;
+	margin-right: 10px !important;
+}
+
+.ovh{overflow: hidden;}
+
+.bl{
+	border-left: 1px solid #ddd;
+}
+
+.ma{
+	margin: auto;
+}
+
+.h10{height: 10px;}
+.h50{height: 50px;}
+
+.slide1{width: 100%}
+
+.ts{font-size: 80%;}
+
+.tar{text-align: right;}
+
+.tac{text-align: center;}
+
+.tal{text-align: left;}
+
+.g{border:1px solid black;}
+
+.dis{color: rgb(150, 150, 150) !important;}
+
+.ldr{
+	min-width: 100% !important;
+	min-height: 100% !important;
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.mm{margin: 0px 3px 0px 3px;}
+
+ion-popover-view.fit {
+  height: auto !important;
+}
+
+ion-popover-view.fit ion-content {
+  position: relative !important;
+}
+
+.platform-android ion-popover-view.fit {
+  margin-top: 10px !important;
+}
+
+
+
+.HOUR-FREE{
+	background-color: #eceded;
+}
+
+.STANDARD, .ROOMSUBSTITUTION{
+	background-color:#fffacd;
+}
+
+.EXAM{
+	background-color: #ffed00;
+}
+
+.CONFIRMED{
+	background-color: #b0bc00;
+}
+
+.UNCONFIRMED{
+	background-color: #d7dd7a;
+}
+
+.CANCEL{
+	background-color: #b1b3b4;
+	text-decoration: line-through;
+}
+
+.ADDITIONAL, .SHIFT{
+	background-color:#a781b5;
+}
+
+.SUBSTITUTION{
+	background-color: #a781b5;
+}
+
+.HOLIDAY{
+	background-color: #53aedd;
+}

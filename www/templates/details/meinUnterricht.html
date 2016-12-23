@@ -1,0 +1,41 @@
+<ion-view>
+
+    <ion-nav-title>{{lesson.typ}}</ion-nav-title>
+
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>
+    </ion-nav-buttons>
+
+    <ion-content padding="true">
+        <ion-list>
+
+            <ion-item class="item-icon-left" ng-if="lesson.subject">
+                <i class="icon ion-ios-box-outline"></i> {{lesson.subject || '-'}} ({{lesson.subject_short}})
+            </ion-item>
+
+            <ion-item class="item-icon-left royal" ng-if="lesson.teacher">
+                <i class="icon ion-ios-person"></i> {{lesson.teacher || '-'}}
+            </ion-item>
+
+            <ion-item class="item-icon-left">
+                <i class="icon ion-ios-people"></i> {{lesson.class_name || '-'}}
+            </ion-item>
+
+            <ion-item class="item-icon-left" ng-if="lesson.group">
+                <i class="icon ion-ios-people-outline"></i> {{lesson.group}}
+            </ion-item>
+
+            <ion-item class="item-icon-left">
+                <i class="icon ion-ios-timer-outline"></i> {{lesson.lessons || '-'}}
+            </ion-item>
+
+            <ion-item class="item-icon-left">
+                <i class="icon ion-ios-calendar-outline"></i> {{lesson.start}} - {{lesson.end}}
+            </ion-item>
+
+        </ion-list>
+        <div class="h10"></div>
+    </ion-content>
+
+
+</ion-view>
