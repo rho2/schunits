@@ -1,3 +1,6 @@
+#### 24.12.16
+* primitives Caching implementiert
+---
 #### 24.12.26
 * Changelog wird nun auf der Startseite angezeigt
 ---

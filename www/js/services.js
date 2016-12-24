@@ -14,6 +14,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                 try {
                     var headers = ["start", "end", "subject", "teacher", "text"];
                     var table = parseTable(response, headers, "list");
+                    localStorage.c_homework = JSON.stringify(table);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
@@ -50,6 +51,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['subject'] = getOnlyText(a[0])
                         data[i]['subject_short'] = getOnlyText(a[1])
                     }
+                    localStorage.c_exam = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
@@ -84,6 +86,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                     for (var i = 0; i < data.length; i++) {
                         data[i]['mail'] = getOnlyText(data[i]['mail'])
                     }
+                    localStorage.c_office_hour = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
@@ -122,6 +125,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['subject'] = getOnlyText(b[0])
                         data[i]['subject_short'] = getOnlyText(b[1])
                     }
+                    localStorage.c_lesson_list = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
@@ -160,6 +164,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['subject'] = getOnlyText(b[0])
                         data[i]['subject_short'] = getOnlyText(b[1])
                     }
+                    localStorage.c_lesson_student = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
@@ -204,6 +209,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['homework'] = getOnlyText(e[1])
                         data[i]['room'] = getOnlyText(data[i]['room'])
                     }
+                    localStorage.c_lesson_klasse = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
@@ -244,6 +250,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         var c = parseInt(b[1])
                         data[i]['icon'] = icons[c]
                     }
+                    localStorage.c_class_service = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
@@ -285,6 +292,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         var b = tmp.firstChild.value
                         data[i]['counts'] = b
                     }
+                    localStorage.c_absence_times = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
@@ -321,6 +329,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         var a = data[i]['typ'].split('</tooltip>')
                         data[i]['typ'] = getOnlyText(a[0])
                     }
+                    localStorage.c_absence_list = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
@@ -385,6 +394,12 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                 localStorage.timegrid = JSON.stringify(units);
                 localStorage.activeDays = ad;
                 localStorage.days = JSON.stringify(days);
+
+                var timegridEnd = {};
+                for (i in units) {
+                        timegridEnd[units[i].endTime] = units[i];
+                }
+                localStorage.timegridEnd = JSON.stringify(timegridEnd);
             });
         },
         get: function() {
@@ -411,7 +426,8 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                 var id = localStorage.personId;
             }
 
-            var d = '' + date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + date.getDate()).slice(-2);
+            date = getMonday(date)
+            var d = dateString(date)
             
             $http({
                 method: 'POST',
@@ -420,28 +436,32 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                 data: 'ajaxCommand=getWeeklyTimetable&elementType=' + type + '&elementId=' + id + '&date=' + d + '&filter.klasseId=-1&filter.restypeId=-1&filter.buildingId=-1&filter.roomGroupId=-1&filter.departmentId=-1&formatId=1'
             }).then(function(response) {
                 try {
+                    //einzelne Stunden
                     var p = response.data.result.data.elementPeriods[id];
+                    //Elemente wie Facher, Lehrer, Raume etc.
                     var e = response.data.result.data.elements;
-                    
+
                     var timegrid = JSON.parse(localStorage.timegrid);
-                    
+                    var timegridEnd = JSON.parse(localStorage.timegridEnd);
+
+                    //Objekt, dass spaeter zurueckgegeben wird
+                    //erster Index ist der Tag als String
+                    //zweiter Index ist die Spalte, in der die Stunde stattfindet
                     var periods = {};
                     var elem = {};
                     
                     var header = ['', 'class_name', 'teacher', 'subject', 'room']
                     var headerl = ['', 'class_name_long', 'teacher_long', 'subject_long', 'room_long']
                     
+                    console.log(e)
+
+                    //Fuelle elem mit den Daten aus e. Der erste Index ist die ID des jeweiligen Elementes, die zweite der Typ
+                    // 1:Klasse | 2:Lehrer | 3:Fach | 4:Raum | 5:Schueler
                     for (var i = 0; i < e.length; i++) {
                         if (!elem[e[i].id]) {
                             elem[e[i].id] = {};
                         }
                         elem[e[i].id][e[i].type] = e[i];
-                    }
-                    
-                    var timegridEnd = {};
-                    
-                    for (i in timegrid) {
-                        timegridEnd[timegrid[i].endTime] = timegrid[i];
                     }
                     
                     for (var i = 0; i < p.length; i++) {
@@ -460,11 +480,15 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                             p[i].endi = parseInt(end);
                             p[i].span = span;
                     
+                            //Gehe alle Elemente (Klassen, Lehrer, Fach, Raum) durch
                             for (var j = 0; j < p[i].elements.length; j++) {
+                                //Elememt, das gerade bearbeitet wird aus dem elem-Array laden
                                 p[i].elements[j] = elem[p[i].elements[j].id][p[i].elements[j].type];
+                                //Setzen der Forder- und Hintergrundfarbe
                                 p[i].backColor = (p[i].elements[j].backColor || p[i].backColor);
                                 p[i].foreColor = (p[i].elements[j].foreColor || p[i].foreColor);
-                    
+                                
+                                //wenn noch nicht vorhanden, setze displayname, ansonsten haenge in hinten an
                                 if (typeof p[i][header[p[i].elements[j].type]] === "undefined") {
                                     p[i][header[p[i].elements[j].type]] = p[i].elements[j].displayname;
                                 } else {
@@ -476,7 +500,9 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                                 }
                                 p[i].e[p[i].elements[j].type].push(p[i].elements[j]);
                             }
-                            //make element appear in more rows if span is bigger than 1
+
+                            //Ubertragen von p in periods
+                            //anzeigen der Studen in mehreren Reihen, wenn span groesser als 1 ist
                             start = parseInt(start)
                             for (var j = 0; j <= span; j++) {
                                 if (!periods[p[i].date][start + j]) {
@@ -489,13 +515,12 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                     }
                     for (pa in periods) {
                         for (var i = 0; i < periods[pa].length; i++) {
+                            //falls Stunde leer ist, mit leerem Dummy Objekt fuellen
                             if (!periods[pa][i]) {
-                                periods[pa][i] = [];
-                                periods[pa][i][0] = {
-                                    empty: 'empty'
-                                };
+                                periods[pa][i] = [{empty: 'empty'}]
                             } else {
                                 for (ind in periods[pa][i]) {
+                                    //ersetze alle anderen Stunden, wenn die Stunde 'is.event' und 'is.additional'
                                     if (periods[pa][i][ind].is.event && periods[pa][i][ind].is.additional) {
                                         periods[pa][i] = [periods[pa][i][ind]]
                                         break;
@@ -505,6 +530,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         }
                     }
                     
+                    //Wenn Array leer ist, fuelle Array mit Ferien-Dummy Elementen
                     if (p.length == 0) {
                         var emp = {
                             subject: '-',
@@ -520,6 +546,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         }
 
                     }
+                    localStorage['c_timetable_'+d] = JSON.stringify(periods);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
@@ -552,8 +579,6 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                 var pos = a[0].lastIndexOf('}');
                 var b = a[0].substring(0, pos)
                 var b = JSON.parse(b);
-
-                localStorage.info = JSON.stringify(b);
 
                 localStorage.holidays = JSON.stringify(b.calendarServiceConfig.holidays);
                 localStorage.lname = b.licence.name;

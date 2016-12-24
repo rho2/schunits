@@ -24,7 +24,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 .controller('stundenplanHeuteCtrl', function($scope, $state, $ionicLoading, $ionicViewSwitcher, $ionicSlideBoxDelegate, $ionicPopover, LoggingService, TimetableService, ionicToast, ionicDatePicker) {
     $scope.d = {}
     $scope.date = new Date();
-    $scope.dates = '' + $scope.date.getFullYear() + ('0' + ($scope.date.getMonth() + 1)).slice(-2) + ('0' + $scope.date.getDate()).slice(-2);
+    $scope.dates =  dateString($scope.date)
     $scope.t = '1';
     $scope.typ = 5;
     $scope.full = true;
@@ -39,10 +39,9 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 	      callback: function (val) {
 
 	        var date = new Date(val);
-	        var d = '' + date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+            var d = dateString(date)
 	        $scope.dates = d;
 	        $scope.date = date;
-	        $scope.popover.hide();
 	        $scope.reload();
 	      },
 	      inputDate: $scope.date
@@ -71,6 +70,8 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
             }
             catch(err){}
         }
+
+        $scope.data = JSON.parse(localStorage['c_timetable_'+ dateString(getMonday($scope.date))] || '{}')
 
         TimetableService.load($scope.date, $scope.typ).then(function(response) {
             $scope.data = response;
@@ -201,14 +202,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 .controller('sprechstundenCtrl', function($scope, $stateParams, $ionicViewSwitcher, $state, $ionicLoading, $ionicPopover, OfficeHourService, ionicToast, ionicDatePicker) {
 
     $scope.date = new Date('2016-01-01');
-    $scope.dates = '' + $scope.date.getFullYear() + '-' + ('0' + ($scope.date.getMonth() + 1)).slice(-2) + '-' + ('0' + $scope.date.getDate()).slice(-2);
-
-
-    $ionicPopover.fromTemplateUrl('templates/modals/officehour.html', {
-	    scope: $scope,
-	}).then(function(popover) {
-	    $scope.popover = popover;
-	});
+    $scope.dates = dateString($scope.date)
 
     $scope.hourClick = function(hour) {
         OfficeHourService.selectedHour = hour
@@ -232,8 +226,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 	      callback: function (val) {
 
 	        var date = new Date(val);
-	        var d = '' + date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-	        $scope.dates = d;
+	        $scope.dates = dateString(date);
 	        $scope.date = date;
 	        $scope.popover.hide();
 	        $scope.reload();
@@ -244,7 +237,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 		ionicDatePicker.openDatePicker(dpo);
 	};
 
-
+    $scope.data = JSON.parse(localStorage.c_office_hour || '{}')
     $scope.reload();
 })
 
@@ -254,7 +247,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     });
 
     $scope.goBack = function() {
-        
         goBack($ionicHistory);
     }
 
@@ -287,6 +279,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         });
     };
 
+    $scope.data = JSON.parse(localStorage.c_lesson_list || '{}')
     $scope.reload();
 })
 
@@ -328,6 +321,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
             });
         }
 
+        $scope.data = JSON.parse(localStorage.c_lesson_student || '{}')
         $scope.reload()
 })
 
@@ -368,6 +362,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         });
     }
 
+    $scope.data = JSON.parse(localStorage.c_exam || '{}')
     $scope.reload()
 })
 
@@ -394,7 +389,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     };
 
     $scope.reload = function() {
-
         LessonKlasseService.getData().then(function(response) {
             $scope.data = response;
 
@@ -406,6 +400,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         })
     }
 
+    $scope.data = JSON.parse(localStorage.c_lesson_klasse || '{}')
     $scope.reload()
 })
 
@@ -447,7 +442,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         });
     }
 
-
+    $scope.data = JSON.parse(localStorage.c_absence_list || '{}')
     $scope.reload()
 })
 
@@ -488,7 +483,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         });
     }
 
-
+    $scope.data = JSON.parse(localStorage.c_absence_times || '{}')
     $scope.reload()
 })
 
@@ -530,6 +525,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         });
     };
 
+    $scope.data = JSON.parse(localStorage.c_homework || '{}')
     $scope.reload();
 })
 
@@ -569,6 +565,8 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
             $scope.$broadcast('scroll.refreshComplete');
         });
     };
+
+    $scope.data = JSON.parse(localStorage.c_class_service || '{}')
     $scope.me = localStorage.dName;
     $scope.reload();
 })
@@ -657,9 +655,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         $scope.data = JSON.parse(localStorage.temails);
     });
 
-
     $scope.reload = function() {
-
         TeacherEmailService.load().then(function(response) {
             $scope.data = JSON.parse(localStorage.temails);
 
@@ -673,7 +669,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
 
     $scope.goBack = function() {
-        
         goBack($ionicHistory);
     }
 
@@ -686,7 +681,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     $scope.$on("$ionicView.beforeEnter", function(event, data) {
         $scope.data = JSON.parse(localStorage.people);
     });
-
 
     $scope.reload = function() {
 
@@ -713,7 +707,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 })
 
 .controller('sonstigesCtrl', function($scope, $stateParams, LoggingService, ionicToast) {
-    $scope.erlink = localStorage.erlink;
 
     $scope.sendLog = function(){
         LoggingService.get().then(function(response) {
@@ -736,67 +729,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
 .controller('infoCtrl', function($scope, $stateParams) {})
 
-.controller('stundenplanCtrl', function($scope, $state, $ionicLoading, $ionicViewSwitcher, $ionicSlideBoxDelegate, $ionicPopover,  TimetableService, ionicToast, ionicDatePicker) {
-	$scope.timegrid = JSON.parse(localStorage.timegrid);
-	$scope.d = {}
-    $scope.date = new Date();
-    $scope.dates = '' + $scope.date.getFullYear() + ('0' + ($scope.date.getMonth() + 1)).slice(-2) + ('0' + $scope.date.getDate()).slice(-2);
-    $scope.t = '1';
-
-    $scope.typ = 5;
-
-    $ionicPopover.fromTemplateUrl('templates/modals/timetable.html', {
-	    scope: $scope,
-	}).then(function(popover) {
-	    $scope.popover = popover;
-	});
-
-	$scope.openDatePicker = function(){
-		var dpo = {
-	      callback: function (val) {
-
-	        var date = new Date(val);
-	        var d = '' + date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-	        $scope.dates = d;
-	        $scope.date = date;
-	        $scope.popover.hide();
-	        $scope.reload();
-	      },
-	      inputDate: $scope.date
-	  	}
-
-		ionicDatePicker.openDatePicker(dpo);
-	};
-
-	$scope.change = function(t){
-		$scope.typ = t;
-		console.log($scope.typ)
-		$scope.popover.hide();
-	    $scope.reload();
-	}
-
-    $scope.reload = function() {
-
-        TimetableService.load($scope.date, $scope.typ).then(function(response) {
-            $scope.data = response;
-        }).catch(function(error) {
-            ionicToast.show(error.status + '\n' + error.statusText, 'top', false, 1000);
-
-        }).finally(function() {
-            $scope.$broadcast('scroll.refreshComplete');
-        });
-
-    };
-
-    $scope.$on("$ionicView.loaded", function(event, data) {
-        $scope.reload();
-    });
-
-    $scope.doClick = function(lesson) {
-        TimetableService.selectedLesson = lesson;
-        goTo($state, 'stundenplanDetail');
-    };
-})
+.controller('stundenplanCtrl', function($scope, $state) {})
 
 var goTo = function(st, tar){
     st.go(tar);
