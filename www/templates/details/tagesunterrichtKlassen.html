@@ -5,35 +5,35 @@
         <button class="button button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>
     </ion-nav-buttons>
 
-    <ion-content padding="true">
+    <ion-content padding="true" black>
         <ion-list>
 
             <ion-item class="item-icon-left">
-                <i class="icon ion-ios-box-outline"></i> {{lesson.subject || '-'}} ({{lesson.subject_short || '-'}})
+                <span><i class="icon ion-ios-box-outline"></i> {{lesson.subject || '-'}} ({{lesson.subject_short || '-'}})</span>
             </ion-item>
 
-            <ion-item class="item-icon-left royal">
-                <i class="icon ion-ios-person"></i> {{lesson.teacher || '-'}}
-            </ion-item>
-
-            <ion-item class="item-icon-left">
-                <i class="icon ion-ios-people"></i> {{lesson.class_name || '-'}}
+            <ion-item class="item-icon-left ">
+                <span class="royal"><i class="icon ion-ios-person"></i> {{lesson.teacher || '-'}}</span>
             </ion-item>
 
             <ion-item class="item-icon-left">
-                <i class="icon ion-ios-calendar-outline"></i> {{lesson.start || '-'}} - {{lesson.end || '-'}}
+                <span><i class="icon ion-ios-people"></i> {{lesson.class_name || '-'}}</span>
             </ion-item>
 
-            <ion-item class="item-icon-left balanced">
-                <i class="icon ion-ios-location-outline"></i>{{lesson.room || '-'}}
+            <ion-item class="item-icon-left">
+                <span><i class="icon ion-ios-calendar-outline"></i> {{lesson.start || '-'}} - {{lesson.end || '-'}}</span>
+            </ion-item>
+
+            <ion-item class="item-icon-left ">
+                <span class="balanced"><i class="icon ion-ios-location-outline"></i>{{lesson.room || '-'}}</span>
             </ion-item>
 
             <ion-item class="item-icon-left item-text-wrap">
-                <i class="icon ion-ios-list-outline"></i> {{lesson.text || '-'}}
+                <span><i class="icon ion-ios-list-outline"></i> {{lesson.text || '-'}}</span>
             </ion-item>
 
             <ion-item class="item-icon-left item-text-wrap">
-                <i class="icon ion-ios-paper-outline"></i> {{lesson.homework || '-'}}
+                <span><i class="icon ion-ios-paper-outline"></i> {{lesson.homework || '-'}}</span>
             </ion-item>
 
         </ion-list>

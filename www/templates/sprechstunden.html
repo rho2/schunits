@@ -1,9 +1,9 @@
-<ion-view title="Sprechstunden">
+<ion-view title="Sprechstunden" black>
 
-  <div class="bar bar-footer row bw text-right">
+  <div class="bar bar-footer row bw text-right" >
         <div style="width: 80%"></div>
         <div style="width: 12%">
-            <button class="button button-icon icon ion-calendar" ng-click="openDatePicker()"></button>
+            <button class="button button-icon icon ion-calendar button-theme" ng-click="openDatePicker()"></button>
         </div>
   </div>
 
@@ -13,7 +13,10 @@
     </ion-refresher>
 
   	<ion-list padding="true">
-  		<ion-item ng-repeat="hour in data" class="c-list-item " padding="true" ng-click="hourClick(hour)">
+
+      <div black>
+
+  		<ion-item ng-repeat="hour in data" class="c-list-item" padding="true" ng-click="hourClick(hour)">
   			
   			<div class="row">
   				<div class="col col-33 royal">{{ hour.teacher }}</div>
@@ -28,9 +31,12 @@
   			</div>
 
  		</ion-item>
+
+    </div>
+
   	</ion-list>
 
-    <div class="h10"></div>
+    <div class="h50"></div>
   </ion-content>
 
 </ion-view>

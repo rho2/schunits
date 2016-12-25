@@ -1,0 +1,129 @@
+$black:							#000 !default;
+
+$button-black-bg:                  $black !default;
+$button-black-text:                #fff !default;
+$button-black-border:              #555 !default;
+$button-black-active-bg:           #262626 !default;
+$button-black-active-border:       #444 !default;
+
+$bar-black-bg:                     rgba($black, 1) !default;
+$bar-black-text:                   $button-black-text !default;
+$bar-black-border:                 $button-black-border !default;
+$bar-black-active-bg:              $button-black-active-bg !default;
+$bar-black-active-border:          $button-black-active-border !default;
+
+$item-black-bg:                    $button-black-bg !default;
+$item-black-border:                $button-black-border !default;
+$item-black-text:                  $button-black-text !default;
+$item-black-active-bg:             $button-black-active-bg !default;
+$item-black-active-border:         $button-black-active-border !default;
+
+$tabs-black-bg:                    $button-black-bg !default;
+$tabs-black-border:                $button-black-bg !default;
+$tabs-black-text:                  $button-black-text !default;
+
+.bar{
+	&.bar-black {
+    @include bar-style($bar-black-bg, $bar-black-border, $bar-black-text);
+    background-image: none;
+    &.bar-footer{
+      background-image: linear-gradient(180deg, $bar-black-border, $bar-black-border 50%, transparent 50%);
+    }
+
+  }
+}
+
+.item{
+	&.item-black {
+    	@include item-style($item-black-bg, $item-black-border, $item-black-text);
+
+    	.item-content{
+    		background-color: $black;
+    	}
+	}
+}
+
+.item-black{
+	&.item-divider{
+		background-color: lighten($item-black-bg, 20%)
+	}
+}
+
+.tabs-black > .tabs,
+.tabs.tabs-black {
+  @include tab-style($tabs-black-bg, $tabs-black-border, $tabs-black-text);
+  @include tab-badge-style($tabs-black-text, $tabs-black-bg);
+}
+
+.dark{
+	background-color: $button-dark-bg;
+	color: $button-dark-text;
+}
+
+.black{
+	background-color: $button-black-bg;
+	color: $button-black-text;
+
+  .item{
+    @include item-style($item-black-bg, $item-black-border, $item-black-text);
+
+    .item-content{
+        background-color: $black;
+    }
+  }
+
+  .bw{
+    background-color: rgba($button-black-bg, .5) !important;
+    color: $button-black-text;
+    border-color: $button-black-border;
+
+    background-image: none;
+  }
+
+  .button-theme{
+    @include button-style($button-black-bg, $button-black-border, $button-black-active-bg, $button-black-active-border, $button-black-text);
+    @include button-clear($button-black-bg);
+    @include button-outline($button-black-bg);
+  }
+
+  .button.button-stable.button-outline {
+    color: #f8f8f8;
+  }
+
+  .b1{
+    background-color: transparent;
+  }
+
+  #selectButton {
+    color: lighten($calm, 20%) !important;
+    border-color: lighten($calm, 20%) !important;
+  }
+
+  input{
+    color: $button-black-text;
+  }
+
+  .bl{
+    border-left: 1px solid $button-black-border;
+  }
+
+  .ma{
+    color: $black;
+  }
+
+  .timegrid{
+    color: $button-black-text;
+  }
+
+  .footerButton{
+    color: darken($button-black-text, 30%);
+  }
+
+  .HOUR-FREE{
+    background-color: darken($hour-free, 70%);
+  }
+
+}
+
+
+

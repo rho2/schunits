@@ -21,7 +21,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     }
 })
 
-.controller('stundenplanHeuteCtrl', function($scope, $state, $ionicLoading, $ionicViewSwitcher, $ionicSlideBoxDelegate, $ionicPopover, LoggingService, TimetableService, ionicToast, ionicDatePicker) {
+.controller('stundenplanHeuteCtrl', function($scope, $state, $ionicLoading, $ionicViewSwitcher, $ionicPopover, LoggingService, TimetableService, ionicToast, ionicDatePicker) {
     $scope.d = {}
     $scope.date = new Date();
     $scope.dates =  dateString($scope.date)
@@ -165,6 +165,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         $scope.lesson = TimetableService.selectedLesson;
 
         var h = document.getElementsByTagName('ion-header-bar')[0]
+        $scope.savedBack = h.style.backgroundColor;
         h.style.backgroundColor = $scope.lesson.backColor;
 
         $scope.showClasses = false;
@@ -175,7 +176,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
     $scope.$on('$stateChangeStart', function(e) {
         var h = document.getElementsByTagName('ion-header-bar')[0]
-        h.style.backgroundColor = '#F8F8F8';
+        h.style.backgroundColor = $scope.savedBack;
     });
 
     $scope.goBack = function() {
@@ -202,7 +203,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 .controller('sprechstundenCtrl', function($scope, $stateParams, $ionicViewSwitcher, $state, $ionicLoading, $ionicPopover, OfficeHourService, ionicToast, ionicDatePicker) {
 
     $scope.date = new Date('2016-01-01');
-    $scope.dates = dateString($scope.date)
+    $scope.dates = '' + $scope.date.getFullYear() + '-' + ('0' + ($scope.date.getMonth() + 1)).slice(-2) + '-' + ('0' + $scope.date.getDate()).slice(-2);
 
     $scope.hourClick = function(hour) {
         OfficeHourService.selectedHour = hour
@@ -226,9 +227,8 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 	      callback: function (val) {
 
 	        var date = new Date(val);
-	        $scope.dates = dateString(date);
+	        $scope.dates = '' + date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
 	        $scope.date = date;
-	        $scope.popover.hide();
 	        $scope.reload();
 	      },
 	      inputDate: $scope.date
@@ -725,9 +725,39 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     }
 })
 
-.controller('einstellungenCtrl', function($scope, $stateParams) {})
+.controller('einstellungenCtrl', function($scope, $state, $ionicHistory, $window) {
+    loadSettings($scope);
 
-.controller('infoCtrl', function($scope, $stateParams) {})
+    $scope.save = function(){
+        localStorage.settings = JSON.stringify($scope.settings);
+
+        var element = angular.element(document.getElementById('navbar'));
+        var element1 = angular.element(document.getElementById('menu-button'));
+
+          if($scope.settings.darkmode){
+            console.log('dark')
+            element.removeClass('bar-stable');
+
+            element.addClass('bar-black');
+            element1.addClass('button-dark');
+          }
+          else{
+            element.removeClass('bar-black');
+
+            element.addClass('bar-stable');
+          }
+        $window.location.reload(true);
+    }
+
+})
+
+.controller('infoCtrl', function($scope, $stateParams) {
+    loadSettings($scope);
+})
+
+.controller('AppController', function($scope, $stateParams) {
+    loadSettings($scope);
+})
 
 .controller('stundenplanCtrl', function($scope, $state) {})
 
@@ -766,5 +796,12 @@ var addDays = function(date, d) {
 
 var shortDateString = function(s){
 	return s.substring(6) + '.' + s.substring(4, 6) + '.' + s.substring(2, 4)
+}
+
+var loadSettings = function(scope){
+    scope.$on("$ionicView.beforeEnter", function(event, data){
+        scope.settings = JSON.parse(localStorage.settings || '{}');
+        console.log(scope.settings)
+    });
 }
 

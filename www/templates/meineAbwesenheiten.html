@@ -1,4 +1,4 @@
-<ion-view title="Meine Abwesenheiten" id="page9">
+<ion-view title="Meine Abwesenheiten" black>
   
   <footerc></footerc>
 
@@ -8,6 +8,7 @@
     </ion-refresher>
   
   	<ion-list>
+    <div black>
       <ion-item ng-repeat="absence in data" class="c-list-item " padding="true" ng-click="absenceClick(absence)">
       		
           <div class="row ">
@@ -20,10 +21,10 @@
   				  <div class="col tac">{{absence.status}}</div>
             <div class="col tar">{{absence.text || '-'}}</div>
   			  </div>
-
-  			
+</ion-item>
+</div>  			
     </ion-list>
-    <div class="h50"></div>
+    <div class="h50" black></div>
   </ion-content>
 
 </ion-view>

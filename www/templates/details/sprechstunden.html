@@ -4,23 +4,23 @@
         <button class="button button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>
     </ion-nav-buttons>
 
-    <ion-content padding="true">
+    <ion-content padding="true" black>
         <ion-list>
 
-            <ion-item class="item-icon-left royal">
-                <i class="icon ion-ios-person"></i> {{ hour.teacher }}
+            <ion-item class="item-icon-left ">
+                <span class="royal"><i class="icon ion-ios-person"></i> {{ hour.teacher }}</span>
             </ion-item>
 
             <ion-item class="item-icon-left" href="mailto:{{ hour.mail }}">
-                <i class="icon ion-ios-email-outline"></i> {{ hour.mail }}
+                <span><i class="icon ion-ios-email-outline"></i> {{ hour.mail }}</span>
             </ion-item>
 
-            <ion-item class="item-icon-left calm">
-                <i class="icon ion-ios-calendar-outline"></i> {{ hour.day }}, {{ hour.date }}
+            <ion-item class="item-icon-left ">
+                <span class="calm"><i class="icon ion-ios-calendar-outline"></i> {{ hour.day }}, {{ hour.date }}</span>
             </ion-item>
 
-            <ion-item class="item-icon-left positive">
-                <i class="icon ion-ios-clock-outline"></i> {{ hour.start }} - {{ hour.end }}
+            <ion-item class="item-icon-left ">
+                <span class="positive"><i class="icon ion-ios-clock-outline"></i> {{ hour.start }} - {{ hour.end }}</span>
             </ion-item>
 
 

@@ -8,10 +8,9 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
     <script src="lib/filelogger/dist/filelogger.min.js"></script>
-
     <script src="cordova.js"></script>
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+
+    <link href="css/ionic.app.css" rel="stylesheet">
 
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
@@ -28,15 +27,15 @@
 
 </head>
 
-<body ng-app="app" >
-    <div>
-        <ion-side-menus  >
-
+<body ng-app="app">
+    <div ng-controller="AppController">
+        <ion-side-menus>
             <ion-side-menu-content drag-content="true">
-                <ion-nav-bar class="bar-stable" id='navbar'>
+                <ion-nav-bar id='navbar'><!-- <ion-nav-bar class="bar-stable" id='navbar'> -->
                     
                     <ion-nav-buttons side="left">
-                        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+                        <button class="button button-icon ion-navicon" menu-toggle="left" id='menu-button'></button>
+                        <!-- <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button> -->
                     </ion-nav-buttons>
                     
                 </ion-nav-bar>
@@ -47,78 +46,78 @@
             </ion-side-menu-content>
 
             <ion-side-menu side="left" drag-content="false">
-                <ion-header-bar class="bar-stable">
+                <ion-header-bar bar-black><!-- <ion-header-bar class="bar-stable"> -->
                     <div class="title">Menu</div>
                 </ion-header-bar>
 
                 <ion-content ng-controller="menuCtrl" padding="false" class="side-menu-left has-header " drag-content="false">
                     <ion-list  >
 
-                        <ion-item class="item-icon-left" " ui-sref="startseite.start"  menu-close="">
+                        <ion-item class="item-icon-left" ui-sref="startseite.start"  menu-close="" item-black>
                             <i class="icon ion-ios-home"></i>Start
                         </ion-item>
 
 
-                        <ion-item class="item-icon-left royal"  ui-sref="sprechstunden" menu-close="">
+                        <ion-item class="item-icon-left menu-timetable"  ui-sref="sprechstunden" menu-close="" item-black>
                             <i class="icon ion-ios-telephone"></i>Sprechstunden
                         </ion-item>
 
-                        <ion-item class="item-icon-left royal"  ui-sref="startseite.stundenplanHeute" menu-close="" >
+                        <ion-item class="item-icon-left menu-timetable"  ui-sref="startseite.stundenplanHeute" menu-close="" item-black>
                             <i class="icon ion-ios-calendar-outline"></i>Stundenplan
                         </ion-item>
 
-                        <ion-item class="item-icon-left positive"  ui-sref="meinUnterricht" menu-close="" >
+                        <ion-item class="item-icon-left menu-lesson"  ui-sref="meinUnterricht" menu-close="" item-black>
                             <i class="icon ion-ios-bookmarks"></i>Mein Unterricht
                         </ion-item>
 
-                        <ion-item class="item-icon-left positive" ui-sref="unterrichtSchuler" menu-close="" >
+                        <ion-item class="item-icon-left menu-lesson" ui-sref="unterrichtSchuler" menu-close="" item-black>
                             <i class="icon ion-ios-bookmarks"></i>Unterricht Schüler
                         </ion-item>
 
-                        <ion-item class="item-icon-left positive" ui-sref="startseite.prufungen" menu-close="" >
+                        <ion-item class="item-icon-left menu-lesson" ui-sref="startseite.prufungen" menu-close="" item-black>
                             <i class="icon ion-ios-bookmarks"></i>Prüfungen
                         </ion-item>
 
-                        <ion-item class="item-icon-left positive" ui-sref="tagesunterrichtKlassen" menu-close="" >
+                        <ion-item class="item-icon-left menu-lesson" ui-sref="tagesunterrichtKlassen" menu-close="" item-black>
                             <i class="icon ion-ios-bookmarks"></i>Tagesunterricht Klassen
                         </ion-item>
 
 
-                        <ion-item class="item-icon-left calm"  ui-sref="meineAbwesenheiten" menu-close="" >
+                        <ion-item class="item-icon-left menu-absence"  ui-sref="meineAbwesenheiten" menu-close="" item-black>
                             <i class="icon ion-ios-flag"></i>Meine Abwesenheiten
                         </ion-item>
 
-                        <ion-item class="item-icon-left calm"  ui-sref="fehlzeiten" menu-close="" >
+                        <ion-item class="item-icon-left menu-absence"  ui-sref="fehlzeiten" menu-close="" item-black>
                             <i class="icon ion-ios-flag"></i>Fehlzeiten
                         </ion-item>
 
-                        <ion-item class="item-icon-left calm"  ui-sref="befreiungen" menu-close="" >
+                        <ion-item class="item-icon-left menu-absence"  ui-sref="befreiungen" menu-close="" item-black>
                             <i class="icon ion-ios-flag"></i>Befreiungen
                         </ion-item>
 
 
-                        <ion-item class="item-icon-left balanced" ui-sref="startseite.hausaufgaben" menu-close="" >
+                        <ion-item class="item-icon-left menu-classbook" ui-sref="startseite.hausaufgaben" menu-close="" item-black>
                             <i class="icon ion-ios-book"></i>Hausaufgaben
                         </ion-item>
 
-                        <ion-item class="item-icon-left balanced" ui-sref="klassenbucheintrage" menu-close="" >
+                        <ion-item class="item-icon-left menu-classbook" ui-sref="klassenbucheintrage" menu-close="" item-black>
                             <i class="icon ion-ios-book"></i>Klassenbucheinträge
                         </ion-item>
 
-                        <ion-item class="item-icon-left balanced" ui-sref="klassendienste" menu-close="" >
+                        <ion-item class="item-icon-left menu-classbook" ui-sref="klassendienste" menu-close="" item-black>
                             <i class="icon ion-ios-book"></i>Klassendienste
                         </ion-item>
 
 
-                        <ion-item class="item-icon-left" ui-sref="sonstiges" menu-close="" >
+                        <ion-item class="item-icon-left" ui-sref="sonstiges" menu-close="" item-black>
                             <i class="icon ion-cube"></i>Sonstiges
                         </ion-item>
 
-                        <ion-item class="item-icon-left" ui-sref="einstellungen" menu-close="" >
+                        <ion-item class="item-icon-left" ui-sref="einstellungen" menu-close="" item-black>
                             <i class="icon ion-ios-gear"></i>Einstellungen
                         </ion-item>
 
-                        <ion-item class="item-icon-left" ui-sref="info" menu-close="" >
+                        <ion-item class="item-icon-left" ui-sref="info" menu-close="" item-black>
                             <i class="icon ion-ios-lightbulb"></i>&Uuml;ber
                         </ion-item>
                     </ion-list>

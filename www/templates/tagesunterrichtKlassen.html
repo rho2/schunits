@@ -1,4 +1,4 @@
-<ion-view title="Tagesunterricht Klassen">
+<ion-view title="Tagesunterricht Klassen" black>
 
   <ion-content padding="true" >
 
@@ -6,6 +6,8 @@
     </ion-refresher>
   
   	<ion-list padding="true">
+
+      <div black>
   		<ion-item ng-repeat="lesson in data" class="c-list-item " padding="true" ng-click="lessonClick(lesson)">
   			
   			<div class="row">
@@ -14,6 +16,7 @@
   			</div>
 
  		</ion-item>
+    </div>
   	</ion-list>
     <div class="h50"></div>
   </ion-content>

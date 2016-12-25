@@ -1,22 +1,27 @@
-<ion-view title="Sonstiges">
-  <ion-content padding="true" class="has-header">
-    <button class="button button-full" ui-sref="feiertage">
+<ion-view title="Sonstiges" >
+  <ion-content padding="true" class="has-header" black>
+
+    <button class="button button-full button-positive" ui-sref="login">
+        <i class="icon ion-unlocked"></i> Anmelden
+    </button>
+  
+    <button class="button button-full button-positive" ui-sref="feiertage">
     		<i class="icon ion-android-calendar"></i> Feiertage
   	</button>
 
-  	<button class="button button-full" ui-sref="temail">
+  	<button class="button button-full button-positive" ui-sref="temail">
     		<i class="icon ion-ios-email-outline"></i> Lehrer E-Mails
   	</button>
 
-  	<button class="button button-full" ui-sref="people">
+  	<button class="button button-full button-positive" ui-sref="people">
     		<i class="icon ion-ios-people"></i> Sch&uuml;ler/Lehrer
   	</button>
 
-    <button class="button button-full" ng-click="sendLog()">
+    <button class="button button-full button-energized" ng-click="sendLog()">
         <i class="icon ion-help-buoy"></i> Log senden
     </button>
 
-    <button class="button button-full" ng-click="del()">
+    <button class="button button-full button-assertive" ng-click="del()">
         <i class="icon ion-trash-a"></i> Delete Log
     </button>
 

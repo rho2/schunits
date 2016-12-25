@@ -1,3 +1,8 @@
+#### 25.12.16
+* SASS
+* Dark-Theme
+* Anmelden-Button von Einstellungen in Sonstiges verschoben
+
 #### 24.12.16
 * primitives Caching implementiert
 ---

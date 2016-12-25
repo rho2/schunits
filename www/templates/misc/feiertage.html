@@ -1,11 +1,12 @@
-<ion-view title="Feiertage">
+<ion-view title="Feiertage" >
 
     <ion-nav-buttons side="left">
         <button class="button button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>
     </ion-nav-buttons>
 
-    <ion-content padding="true">
+    <ion-content padding="true" black >
         <ion-list padding="true">
+        <div black>
             <ion-item ng-repeat="holiday in data" class="c-list-item " padding="true">
 
                 <div class="row">
@@ -18,6 +19,7 @@
                 </div>
 
             </ion-item>
+            </div>
         </ion-list>
 
         <div class="h10"></div>

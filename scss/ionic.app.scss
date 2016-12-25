@@ -18,6 +18,23 @@ $dark:                            #444 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
+$hour-free:						#eceded !default;
+$standard:						#fffacd !default;
+$exam:							#ffed00 !default;
+$confirmed:						#b0bc00 !default;
+$unconfirmed:					#d7dd7a !default;
+$cancel:						#b1b3b4 !default;
+$additional:					#a781b5 !default;
+$holiday: 						#53aedd !default;
+
+$menu-timetable:				#886aea !default;
+$menu-lesson:					#11c1f3 !default;
+$menu-absence:					#ffc900 !default;
+$menu-classbook:				#33cd5f !default;
+
+
+
+@import "scss/styles";
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-
+@import "scss/dark";

@@ -1,4 +1,4 @@
-<ion-view title="Klassendienste">
+<ion-view title="Klassendienste" black>
 
   <footerc></footerc>
   
@@ -8,13 +8,16 @@
     </ion-refresher>
   
     <ion-list>
+    <div black>
       <ion-item ng-repeat="service in data" class="c-list-item item-icon-left" padding="true" ng-click="serviceClick(service)">
         
         <div class="row ">
           <div class="col col-20"><i class="icon {{service.icon}}"></i></div>
-          <div class="col {{ service.name == me  ? 'calm' : 'dark' }}">{{service.name}}</div>
+          <div class="col {{ service.name == me  ? 'calm' :  '' }}">{{service.name}}</div>
           <div class="col positive tar">{{service.time}}</div>
         </div>
+</ion-item>
+</div>
 
     </ion-list>
     <div class="h50"></div>

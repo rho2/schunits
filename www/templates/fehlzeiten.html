@@ -1,4 +1,4 @@
-<ion-view title="Fehlzeiten">
+<ion-view title="Fehlzeiten" black>
 
   <footerc></footerc>
 
@@ -8,6 +8,7 @@
     </ion-refresher>
 
   	<ion-list>
+    <div black>
       <ion-item ng-repeat="absence in data" class="c-list-item " padding="true" ng-click="absenceClick(absence)">
   			<div class="row ">
   				<div class="col calm col-10">{{absence.day}}</div>
@@ -21,6 +22,8 @@
 
   				<div class="col tar">{{absence.reason}}</div>
   			</div>
+        </ion-item>
+        </div>
     </ion-list>
   <div class="h50"></div>
   </ion-content>

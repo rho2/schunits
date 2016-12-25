@@ -12,8 +12,53 @@ angular.module('app.directives', [])
         				'</div>' +
 						'<div style="width: 15%"></div>' +
 			        	'<div style="width: 40%">' +
-          					'<button style="width: 100%" class="button button-outline button-positive b1" ng-click="openSelect()">{{choices[choice.value]}}</button>' +
+          					'<button style="width: 100%" id="selectButton" class="button button-outline button-positive b1" ng-click="openSelect()">{{choices[choice.value]}}</button>' +
         				'</div>' +
  					'</div>'
     };
-});
+})
+
+.directive('black', function ($compile) {
+    return {
+      restrict: 'A',
+      replace: false,
+      terminal: true,
+      priority: 1000,
+      link: function link(scope,element, attrs) {
+        element.attr('ng-class', "settings.darkmode && 'black'");
+        element.removeAttr("black"); //remove the attribute to avoid indefinite loop
+
+        $compile(element)(scope);
+      }
+    };
+})
+
+.directive('itemBlack', function ($compile) {
+    return {
+      restrict: 'A',
+      replace: false,
+      terminal: true,
+      priority: 1000,
+      link: function link(scope,element, attrs) {
+        element.attr('ng-class', "settings.darkmode && 'item-black'");
+        element.removeAttr("item-black"); //remove the attribute to avoid indefinite loop
+
+        $compile(element)(scope);
+      }
+    };
+})
+
+.directive('barBlack', function ($compile) {
+    return {
+      restrict: 'A',
+      replace: false,
+      terminal: true,
+      priority: 1000,
+      link: function link(scope,element, attrs) {
+        element.attr('ng-class', "settings.darkmode && 'bar-black'");
+        element.removeAttr("bar-black"); //remove the attribute to avoid indefinite loop
+
+        $compile(element)(scope);
+      }
+    };
+})

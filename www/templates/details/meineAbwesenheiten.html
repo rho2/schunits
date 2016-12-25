@@ -6,35 +6,35 @@
         <button class="button button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>
     </ion-nav-buttons>
 
-    <ion-content padding="true">
+    <ion-content padding="true" black>
         <ion-list>
 
             <ion-item class="item-icon-left">
-                <i class="icon ion-ios-person"></i> {{absence.student}}
+                <span><i class="icon ion-ios-person"></i> {{absence.student}}</span>
             </ion-item>
 
             <ion-item class="item-icon-left">
-                <i class="icon ion-ios-people"></i> {{absence.class_name || '-'}}
+                <span><i class="icon ion-ios-people"></i> {{absence.class_name || '-'}}</span>
             </ion-item>
 
-            <ion-item class="item-icon-left calm">
-                <i class="icon ion-ios-calendar-outline"></i>{{absence.start}} - {{absence.end}}
+            <ion-item class="item-icon-left ">
+                <span class="calm"><i class="icon ion-ios-calendar-outline"></i>{{absence.start}} - {{absence.end}}</span>
             </ion-item>
 
-            <ion-item class="item-icon-left positive">
-                <i class="icon ion-ios-clock-outline"></i>{{absence.start_time}} - {{absence.end_time}}
-            </ion-item>
-
-            <ion-item class="item-icon-left item-text-wrap">
-                <i class="icon ion-ios-compose-outline"></i> {{absence.reason || '-'}}
+            <ion-item class="item-icon-left ">
+                <span class="positive"><i class="icon ion-ios-clock-outline"></i>{{absence.start_time}} - {{absence.end_time}}</span>
             </ion-item>
 
             <ion-item class="item-icon-left item-text-wrap">
-                <i class="icon ion-ios-filing-outline"></i> {{absence.status || '-'}}
+                <span><i class="icon ion-ios-compose-outline"></i> {{absence.reason || '-'}}</span>
             </ion-item>
 
             <ion-item class="item-icon-left item-text-wrap">
-                <i class="icon ion-ios-list-outline"></i> {{absence.text || '-'}}
+                <span><i class="icon ion-ios-filing-outline"></i> {{absence.status || '-'}}</span>
+            </ion-item>
+
+            <ion-item class="item-icon-left item-text-wrap">
+                <span><i class="icon ion-ios-list-outline"></i> {{absence.text || '-'}}</span>
             </ion-item>
 
 

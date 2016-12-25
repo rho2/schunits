@@ -10,6 +10,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 .config(function($ionicConfigProvider, $httpProvider){
   $httpProvider.defaults.withCredentials = true;
   $ionicConfigProvider.scrolling.jsScrolling(false);
+  $ionicConfigProvider.form.checkbox("circle");
 })
 
 .config(function (ionicDatePickerProvider) {
@@ -35,6 +36,19 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 
 .run(function($ionicPlatform, $rootScope) {
 
+  var element = angular.element(document.getElementById('navbar'));
+  var element1 = angular.element(document.getElementById('menu-button'));
+  var settings = JSON.parse(localStorage.settings || '{}');
+
+  if(settings.darkmode){
+    element.addClass('bar-black');
+    element1.addClass('button-dark');
+  }
+  else{
+    element.addClass('bar-stable');
+    
+  }
+  
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

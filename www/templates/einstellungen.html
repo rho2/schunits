@@ -1,9 +1,17 @@
-<ion-view title="Einstellungen" id="page16">
+<ion-view title="Einstellungen" black>
+
+
   <ion-content padding="true" class="has-header">
   	
-  	<button class="button button-full button-positive" ui-sref="login">
-  		<i class="icon ion-unlocked"></i> Anmelden
-	</button>
+  	<ion-list>
+
+		<ion-checkbox ng-model="settings.darkmode" class="checkbox-dark" black>Dark-Mode</ion-checkbox>
+
+		<button class="button button-full button-balanced" ng-click="save()">
+        	<i class="icon ion-ios-checkmark-outline"></i> Speichern
+    	</button>
+
+	</ion-list>
 
   </ion-content>
 </ion-view>

@@ -1,3 +1,23 @@
+.menu-timetable{
+	color: $menu-timetable !important;
+}
+
+.menu-lesson{
+	color: $menu-lesson !important;
+}
+
+.menu-absence{
+	color: $menu-absence !important;
+}
+
+.menu-classbook{
+	color: $menu-classbook !important;
+}
+
+.bw{
+	background-color: rgba(255, 255, 255, .5) !important;
+}
+
 .c-list-item{
 	padding: 4px 8px 4px 12px !important; 
 	font-size: 15px;
@@ -10,10 +30,6 @@
 .trans{
 	background-color: transparent;
 	border-color: transparent;
-}
-
-.bw{
-	background-color: rgba(255, 255, 255, .5);
 }
 
 .no-padding{
@@ -92,38 +108,38 @@ ion-popover-view.fit ion-content {
 
 
 .HOUR-FREE{
-	background-color: #eceded;
+	background-color: $hour-free;
 }
 
-.STANDARD, .ROOMSUBSTITUTION{
-	background-color:#fffacd;
+.STANDARD{
+	background-color: $standard;
+}
+
+.ROOMSUBSTITUTION{
+	background-color: $standard;
 }
 
 .EXAM{
-	background-color: #ffed00;
+	background-color: $exam;
 }
 
 .CONFIRMED{
-	background-color: #b0bc00;
+	background-color: $confirmed;
 }
 
 .UNCONFIRMED{
-	background-color: #d7dd7a;
+	background-color: $unconfirmed;
 }
 
 .CANCEL{
-	background-color: #b1b3b4;
+	background-color: $cancel;
 	text-decoration: line-through;
 }
 
-.ADDITIONAL, .SHIFT{
-	background-color:#a781b5;
-}
-
-.SUBSTITUTION{
-	background-color: #a781b5;
+.ADDITIONAL, .SHIFT, .SUBSTITUTION{
+	background-color: $additional;
 }
 
 .HOLIDAY{
-	background-color: #53aedd;
+	background-color: $holiday;
 }
