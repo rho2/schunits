@@ -53,60 +53,11 @@
                 <ion-content ng-controller="menuCtrl" padding="false" class="side-menu-left has-header " drag-content="false">
                     <ion-list  >
 
-                        <ion-item class="item-icon-left" ui-sref="startseite.start"  menu-close="" item-black>
-                            <i class="icon ion-ios-home"></i>Start
-                        </ion-item>
-
-
-                        <ion-item class="item-icon-left menu-timetable"  ui-sref="sprechstunden" menu-close="" item-black>
-                            <i class="icon ion-ios-telephone"></i>Sprechstunden
-                        </ion-item>
-
-                        <ion-item class="item-icon-left menu-timetable"  ui-sref="startseite.stundenplanHeute" menu-close="" item-black>
-                            <i class="icon ion-ios-calendar-outline"></i>Stundenplan
-                        </ion-item>
-
-                        <ion-item class="item-icon-left menu-lesson"  ui-sref="meinUnterricht" menu-close="" item-black>
-                            <i class="icon ion-ios-bookmarks"></i>Mein Unterricht
-                        </ion-item>
-
-                        <ion-item class="item-icon-left menu-lesson" ui-sref="unterrichtSchuler" menu-close="" item-black>
-                            <i class="icon ion-ios-bookmarks"></i>Unterricht Schüler
-                        </ion-item>
-
-                        <ion-item class="item-icon-left menu-lesson" ui-sref="startseite.prufungen" menu-close="" item-black>
-                            <i class="icon ion-ios-bookmarks"></i>Prüfungen
-                        </ion-item>
-
-                        <ion-item class="item-icon-left menu-lesson" ui-sref="tagesunterrichtKlassen" menu-close="" item-black>
-                            <i class="icon ion-ios-bookmarks"></i>Tagesunterricht Klassen
-                        </ion-item>
-
-
-                        <ion-item class="item-icon-left menu-absence"  ui-sref="meineAbwesenheiten" menu-close="" item-black>
-                            <i class="icon ion-ios-flag"></i>Meine Abwesenheiten
-                        </ion-item>
-
-                        <ion-item class="item-icon-left menu-absence"  ui-sref="fehlzeiten" menu-close="" item-black>
-                            <i class="icon ion-ios-flag"></i>Fehlzeiten
-                        </ion-item>
-
-                        <ion-item class="item-icon-left menu-absence"  ui-sref="befreiungen" menu-close="" item-black>
-                            <i class="icon ion-ios-flag"></i>Befreiungen
-                        </ion-item>
-
-
-                        <ion-item class="item-icon-left menu-classbook" ui-sref="startseite.hausaufgaben" menu-close="" item-black>
-                            <i class="icon ion-ios-book"></i>Hausaufgaben
-                        </ion-item>
-
-                        <ion-item class="item-icon-left menu-classbook" ui-sref="klassenbucheintrage" menu-close="" item-black>
-                            <i class="icon ion-ios-book"></i>Klassenbucheinträge
-                        </ion-item>
-
-                        <ion-item class="item-icon-left menu-classbook" ui-sref="klassendienste" menu-close="" item-black>
-                            <i class="icon ion-ios-book"></i>Klassendienste
-                        </ion-item>
+                        <div black>
+                            <ion-item class="item-icon-left" ui-sref="{{item.link}}" ng-class="item.class" menu-close="" ng-repeat="item in items">
+                                <i class="icon {{item.icon}}"></i>{{item.text}}
+                            </ion-item>
+                        </div>
 
 
                         <ion-item class="item-icon-left" ui-sref="sonstiges" menu-close="" item-black>

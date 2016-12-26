@@ -269,7 +269,9 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     }, 100);
 })
 
-.controller('menuCtrl', function($scope, $stateParams) {})
+.controller('menuCtrl', function($scope, $stateParams) {
+    $scope.items = defaultMenu();
+})
 
 .controller('meinUnterrichtCtrl', function($scope, $state, $ionicPopover, LessonListService, ionicToast, DateChoiceService) {
 
@@ -819,3 +821,6 @@ var loadSettings = function(scope){
     });
 }
 
+var defaultMenu = function(){
+    return [{"text":"Start","icon":"ion-ios-home","link":"startseite.start","class":""},{"text":"Sprechstunden","icon":"ion-ios-telephone","link":"sprechstunden","class":"menu-timetable"},{"text":"Stundenplan","icon":"ion-ios-calendar-outline","link":"startseite.stundenplanHeute","class":"menu-timetable"},{"text":"Mein Unterricht","icon":"ion-ios-bookmarks","link":"meinUnterricht","class":"menu-lesson"},{"text":"Unterricht Schüler","icon":"ion-ios-bookmarks","link":"unterrichtSchuler","class":"menu-lesson"},{"text":"Prüfungen","icon":"ion-ios-bookmarks","link":"startseite.prufungen","class":"menu-lesson"},{"text":"Tagesunterricht Klassen","icon":"ion-ios-bookmarks","link":"tagesunterrichtKlassen","class":"menu-lesson"},{"text":"Meine Abwesenheiten","icon":"ion-ios-flag","link":"meineAbwesenheiten","class":"menu-absence"},{"text":"Fehlzeiten","icon":"ion-ios-flag","link":"fehlzeiten","class":"menu-absence"},{"text":"Befreiungen","icon":"ion-ios-flag","link":"befreiungen","class":"menu-absence"},{"text":"Hausaufgaben","icon":"ion-ios-book","link":"startseite.hausaufgaben","class":"menu-classbook"},{"text":"Klassenbucheinträge","icon":"ion-ios-book","link":"klassenbucheintrage","class":"menu-classbook"},{"text":"Klassendienste","icon":"ion-ios-book","link":"klassendienste","class":"menu-classbook"}];
+}
