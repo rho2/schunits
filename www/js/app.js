@@ -61,7 +61,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
       StatusBar.styleDefault();
     }
 
-        window.plugins.nativepagetransitions.globalOptions.duration = 400;
+        window.plugins.nativepagetransitions.globalOptions.duration = 500;
         window.plugins.nativepagetransitions.globalOptions.iosdelay = 50;
         window.plugins.nativepagetransitions.globalOptions.androiddelay = 50;
         window.plugins.nativepagetransitions.globalOptions.winphonedelay = 5;

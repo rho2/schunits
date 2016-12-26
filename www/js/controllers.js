@@ -23,6 +23,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
 .controller('stundenplanHeuteCtrl', function($scope, $state, $ionicLoading, $ionicViewSwitcher, $ionicPopover, LoggingService, TimetableService, ionicToast, ionicDatePicker) {
     $scope.d = {}
+    $scope.w = {}
     $scope.date = new Date();
     $scope.dates =  dateString($scope.date)
     $scope.t = '1';
@@ -75,7 +76,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
         TimetableService.load($scope.date, $scope.typ).then(function(response) {
             $scope.data = response;
-            console.log(response);
             if(!$scope.full){
 	            try {
 	                $scope.start = Object.keys($scope.data).indexOf($scope.dates) || 0;
@@ -84,6 +84,11 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 	                LoggingService.log('TimetableSwipe', err)
 	            }
 	        }
+            else{
+                
+
+                $scope.swiperw.slideTo(1, 0)
+            }
             
         }).catch(function(error) {
             ionicToast.show(error.status + '\n' + error.statusText, 'top', false, 1000);
@@ -92,7 +97,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         	$scope.reDates();
             $scope.$broadcast('scroll.refreshComplete');
         });
-
     };
 
     $scope.nextWeek = function(){
@@ -105,13 +109,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     	$scope.reload();
     }
 
-    $scope.onSwipeRight = function(){
-        $scope.prevWeek();
-    }
 
-    $scope.onSwipeLeft = function(){
-        $scope.nextWeek();
-    }
 
     $scope.reDates = function(){
     	var s = dateString(getMonday($scope.date));
@@ -123,7 +121,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
             $scope.swiper.slideTo($scope.start)
             $scope.start = -1;
         }
-
     }
 
     $scope.doClick = function(lesson) {
@@ -139,8 +136,31 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         }
     };
 
+    $scope.w.sliderOptions = {
+        direction: 'horizontal',
+        speed: 500,
+        initialSlide: 1,
+        effect: 'slide',
+        onInit: function(swiper) {
+            $scope.swiperw = swiper;
+        }
+    }
+
     $scope.d.sliderDelegate = null;
-    $scope.reload();
+    $scope.w.sliderDelegate = null;
+
+    $scope.$watch('w.sliderDelegate', function(newVal, oldVal) {
+        if (newVal != null) {
+            $scope.w.sliderDelegate.on('onReachEnd', function() {
+                $scope.nextWeek();
+            });
+            $scope.w.sliderDelegate.on('onReachBeginning', function() {
+                $scope.prevWeek();
+            });
+        }
+
+    });
+    
     $scope.$watch('d.sliderDelegate', function(newVal, oldVal) {
         if (newVal != null) {
         	$scope.reload();
@@ -155,6 +175,8 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         }
 
     });
+
+    $scope.reload();
 })
 
 .controller('stundenplanDetailCtrl', function($scope, $stateParams, $state, $ionicViewSwitcher, $ionicHistory, $ionicPlatform, TimetableService) {
@@ -172,15 +194,10 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         $scope.showRooms = false;
     });
 
-
-
-    $scope.$on('$stateChangeStart', function(e) {
+    $scope.goBack = function() {
         var h = document.getElementsByTagName('ion-header-bar')[0]
         h.style.backgroundColor = $scope.savedBack;
-    });
 
-    $scope.goBack = function() {
-        
         goBack($ionicHistory);
     }
 
@@ -191,9 +208,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         $scope.showRooms = !$scope.showRooms;
     }
 
-    // $ionicPlatform.onHardwareBackButton(function() {
-    //     $scope.goBack();
-    // }, 100);
     $ionicPlatform.onHardwareBackButton(function() {
         $scope.goBack();
     }, 100);
@@ -762,20 +776,20 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 .controller('stundenplanCtrl', function($scope, $state) {})
 
 var goTo = function(st, tar){
+    window.plugins.nativepagetransitions.fade(
+          {},
+          function (msg) {console.log("success: " + msg)}, 
+          function (msg) {alert("error: " + msg)} 
+        );
     st.go(tar);
-    window.plugins.nativepagetransitions.slide(
-          {"direction":"left"},
-          function (msg) {},
-          function (msg) {} 
-    );
 }
 
 var goBack = function(h){
-    window.plugins.nativepagetransitions.slide(
-          {"direction":"right"},
-          function (msg) {}, 
-          function (msg) {} 
-    );
+    window.plugins.nativepagetransitions.fade(
+          {},
+          function (msg) {console.log("success: " + msg)}, 
+          function (msg) {alert("error: " + msg)} 
+        );
     h.goBack();
 }
 

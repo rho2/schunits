@@ -29,7 +29,7 @@
     </div>
 
     <ion-content class="has-header no-padding">
-        <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()"></ion-refresher>
+        <!-- <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()"></ion-refresher> -->
 
            <!-- singe day view -->
             <ion-slides options="d.sliderOptions" slider="d.sliderDelegate" ng-if="!full">
@@ -37,6 +37,7 @@
                 <ion-slide-page ng-repeat="(day, per) in data">
             
                     <ion-scroll zooming="true" direction="y" style=" height: 100%">
+                    <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()"></ion-refresher>
                         <ion-list class="no-padding">
                             <ion-item class="mm c-list-item no-padding" ng-if="!$first" ng-repeat="lessons in per track by $index">
 
@@ -78,9 +79,51 @@
             </ion-slides>
 
 
-            <!-- weekly view -->
+            <!-- weekly view -->           
 
-            <div class="row no-padding " ng-if="full">
+            <ion-slides ng-if="full" options="w.sliderOptions" slider="w.sliderDelegate" >
+
+            <!-- emtpy slide before -->
+            <ion-slide-page>
+<!--                 <div class="row no-padding ">
+                    <div class="col no-padding ovh col-10 bl">
+                        &nbsp;
+                        &nbsp;
+                    </div>
+
+                    <div class="col no-padding ovh bl tac" >
+                        <span class="ts"> &nbsp; </span>
+                    </div>
+                </div>
+
+                <div class="col no-padding ovh col-10">
+                <ion-list>
+                    <ion-item class="mm c-list-item no-padding no-margin" ng-repeat="t in timegrid">
+                        <div class="row no-padding">
+                            <div class="col no-padding ovh bl">
+                                <div class="row ts">
+                                    <span class="ma timegrid">{{ t.name || '&nbsp;'}}</span>
+                                </div>
+                                <div class="row tss">
+                                    <span class="ma timegrid">{{ t.startTime.toString().slice(0, -2) + ":" + t.startTime.toString().slice(-2) || '&nbsp;'}}</span>
+                                </div>
+                                <div class="row tss">
+                                    <span class="ma timegrid">{{ t.endTime.toString().slice(0, -2) + ":" + t.endTime.toString().slice(-2) || '&nbsp;'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-list>
+                </div> -->
+            </ion-slide-page>
+
+
+            <!-- current week -->
+            <ion-slide-page>
+            <ion-scroll zooming="true" direction="y" style=" height: 100%">
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()"></ion-refresher>
+
+            <div class="row no-padding ">
                 <div class="col no-padding ovh col-10 bl">
                 &nbsp;
                 &nbsp;
@@ -92,7 +135,7 @@
 
             </div>
 
-            <div class="row no-padding" ng-if="full" on-swipe-right="onSwipeRight()" on-swipe-left="onSwipeLeft()">
+            <div class="row no-padding" >
 
             <div class="col no-padding ovh col-10">
                 <ion-list>
@@ -162,6 +205,46 @@
             <div class="h10"></div>
         </div>
 
+        </ion-scroll>
+        </ion-slide-page>
+
+        <!-- empty after -->
+        <ion-slide-page>
+<!--                 <div class="row no-padding ">
+                <div class="col no-padding ovh col-10 bl">
+                &nbsp;
+                &nbsp;
+                </div>
+
+                <div class="col no-padding ovh bl tac" >
+                    <span class="ts"> &nbsp;</span>
+                </div>
+
+                </div>
+
+                <div class="col no-padding ovh col-10">
+                <ion-list>
+                    <ion-item class="mm c-list-item no-padding no-margin" ng-repeat="t in timegrid">
+                        <div class="row no-padding">
+                            <div class="col no-padding ovh bl">
+                                <div class="row ts">
+                                    <span class="ma timegrid">{{ t.name || '&nbsp;'}}</span>
+                                </div>
+                                <div class="row tss">
+                                    <span class="ma timegrid">{{ t.startTime.toString().slice(0, -2) + ":" + t.startTime.toString().slice(-2) || '&nbsp;'}}</span>
+                                </div>
+                                <div class="row tss">
+                                    <span class="ma timegrid">{{ t.endTime.toString().slice(0, -2) + ":" + t.endTime.toString().slice(-2) || '&nbsp;'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-list>
+                </div> -->
+        </ion-slide-page>
+
+
+        </ion-slides>
 
     </ion-content>
 
