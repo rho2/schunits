@@ -50,28 +50,32 @@
                     <div class="title">Menu</div>
                 </ion-header-bar>
 
-                <ion-content ng-controller="menuCtrl" padding="false" class="side-menu-left has-header " drag-content="false">
-                    <ion-list  >
+                <ion-content ng-controller="menuCtrl" padding="false" class="side-menu-left has-header " drag-content="false" black>
+                    <div black>
+                    <ion-list on-swipe-right="swipeRight()" on-swipe-left="swipeLeft()">
 
-                        <div black>
+                        
                             <ion-item class="item-icon-left" ui-sref="{{item.link}}" ng-class="item.class" menu-close="" ng-repeat="item in items">
                                 <i class="icon {{item.icon}}"></i>{{item.text}}
+                                <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
+                                <ion-delete-button class="ion-minus-circled" ng-click="delItem(item)"></ion-delete-button>
                             </ion-item>
-                        </div>
+                        
 
 
-                        <ion-item class="item-icon-left" ui-sref="sonstiges" menu-close="" item-black>
+                        <ion-item class="item-icon-left" ui-sref="sonstiges" menu-close="" >
                             <i class="icon ion-cube"></i>Sonstiges
                         </ion-item>
 
-                        <ion-item class="item-icon-left" ui-sref="einstellungen" menu-close="" item-black>
+                        <ion-item class="item-icon-left" ui-sref="einstellungen" menu-close="" >
                             <i class="icon ion-ios-gear"></i>Einstellungen
                         </ion-item>
 
-                        <ion-item class="item-icon-left" ui-sref="info" menu-close="" item-black>
+                        <ion-item class="item-icon-left" ui-sref="info" menu-close="" >
                             <i class="icon ion-ios-lightbulb"></i>&Uuml;ber
                         </ion-item>
                     </ion-list>
+                    </div>
                 </ion-content>
             </ion-side-menu>
 

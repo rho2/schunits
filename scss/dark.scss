@@ -123,6 +123,9 @@ $tabs-black-text:                  $button-black-text !default;
     background-color: darken($hour-free, 70%);
   }
 
+  .scroll{
+    background-color: $button-black-bg;
+  }
 }
 
 

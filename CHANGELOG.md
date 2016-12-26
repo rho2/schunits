@@ -1,4 +1,9 @@
 #### 26.12.16
+* Menu-Reihenfolge kann ge&auml;ndert werden (swipe nach links) und Elemente entfernt werden (swipe nach rechts)
+* CSS-Dateien aus Git entfernt
+* README ge&auml;ndert
+---
+#### 26.12.16
 * Animationen von Slide to Fade ge&aumlndert;
 * Swipe-Verhalten beim Stundenplan verbessert
 ---

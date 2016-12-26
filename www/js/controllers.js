@@ -21,7 +21,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     }
 })
 
-.controller('stundenplanHeuteCtrl', function($scope, $state, $ionicLoading, $ionicViewSwitcher, $ionicPopover, LoggingService, TimetableService, ionicToast, ionicDatePicker) {
+.controller('stundenplanHeuteCtrl', function($scope, $state, $ionicLoading, $ionicViewSwitcher, $ionicPopover,$ionicPlatform, LoggingService, TimetableService, ionicToast, ionicDatePicker) {
     $scope.d = {}
     $scope.w = {}
     $scope.date = new Date();
@@ -30,10 +30,15 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     $scope.typ = 5;
     $scope.full = true;
 
-	$scope.$on("$ionicView.loaded", function(event, data){
+	$scope.$on("$ionicView.afterEnter", function(event, data){
 		document.addEventListener("volumedownbutton", $scope.prevWeek, false);
     	document.addEventListener("volumeupbutton", $scope.nextWeek, false);
 	});
+
+    $scope.$on("$ionicView.beforeLeave", function(event, data){
+        document.removeEventListener("volumedownbutton", $scope.prevWeek, false);
+        document.removeEventListener("volumeupbutton", $scope.nextWeek, false);
+    });
 
 	$scope.openDatePicker = function(){
 		var dpo = {
@@ -186,6 +191,8 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     $scope.$on("$ionicView.beforeEnter", function(event, data) {
         $scope.lesson = TimetableService.selectedLesson;
 
+        console.log($scope.lesson)
+
         var h = document.getElementsByTagName('ion-header-bar')[0]
         $scope.savedBack = h.style.backgroundColor;
         h.style.backgroundColor = $scope.lesson.backColor;
@@ -269,8 +276,61 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     }, 100);
 })
 
-.controller('menuCtrl', function($scope, $stateParams) {
-    $scope.items = defaultMenu();
+.controller('menuCtrl', function($scope, $stateParams, $ionicListDelegate, $ionicSideMenuDelegate) {
+    $scope.items = JSON.parse(localStorage.menu || defaultMenu());
+    $scope.reorder = false;
+    $scope.remove = false;
+
+    $scope.swipeRight = function(){
+        if($scope.reorder){
+            //hide delete
+            $scope.reorder = !$scope.reorder;
+            $ionicListDelegate.showReorder($scope.reorder);
+            return;
+        }
+
+        if(!$scope.remove){
+            //show delete and hide move
+            $scope.remove = !$scope.remove;
+            $ionicListDelegate.showDelete($scope.remove); 
+            $scope.reorder = false;
+            $ionicListDelegate.showReorder(false)
+        }
+    }
+
+    $scope.swipeLeft = function(){
+        if($scope.remove){
+            //hide delete
+            $scope.remove = !$scope.remove;
+            $ionicListDelegate.showDelete($scope.remove);
+            return;
+        }
+
+        if(!$scope.reorder){
+            //show reorder and hide delete
+            $scope.reorder = !$scope.reorder;
+            $ionicListDelegate.showReorder($scope.reorder)
+            $scope.remove = false;
+            $ionicListDelegate.showDelete(false);
+        }
+
+        
+    }
+
+    $scope.save = function(){
+        localStorage.menu = JSON.stringify($scope.items);
+    }
+
+    $scope.moveItem = function(item, fromIndex, toIndex) {
+        $scope.items.splice(fromIndex, 1);
+        $scope.items.splice(toIndex, 0, item);
+        $scope.save();
+    };
+
+    $scope.delItem = function(item) {
+        $scope.items.splice($scope.items.indexOf(item), 1);
+        $scope.save();
+    };
 })
 
 .controller('meinUnterrichtCtrl', function($scope, $state, $ionicPopover, LessonListService, ionicToast, DateChoiceService) {
@@ -765,6 +825,11 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         $window.location.reload(true);
     }
 
+    $scope.resetMenu = function(){
+        localStorage.menu = defaultMenu();
+        $window.location.reload(true);
+    }
+
 })
 
 .controller('infoCtrl', function($scope, $stateParams) {
@@ -822,5 +887,5 @@ var loadSettings = function(scope){
 }
 
 var defaultMenu = function(){
-    return [{"text":"Start","icon":"ion-ios-home","link":"startseite.start","class":""},{"text":"Sprechstunden","icon":"ion-ios-telephone","link":"sprechstunden","class":"menu-timetable"},{"text":"Stundenplan","icon":"ion-ios-calendar-outline","link":"startseite.stundenplanHeute","class":"menu-timetable"},{"text":"Mein Unterricht","icon":"ion-ios-bookmarks","link":"meinUnterricht","class":"menu-lesson"},{"text":"Unterricht Schüler","icon":"ion-ios-bookmarks","link":"unterrichtSchuler","class":"menu-lesson"},{"text":"Prüfungen","icon":"ion-ios-bookmarks","link":"startseite.prufungen","class":"menu-lesson"},{"text":"Tagesunterricht Klassen","icon":"ion-ios-bookmarks","link":"tagesunterrichtKlassen","class":"menu-lesson"},{"text":"Meine Abwesenheiten","icon":"ion-ios-flag","link":"meineAbwesenheiten","class":"menu-absence"},{"text":"Fehlzeiten","icon":"ion-ios-flag","link":"fehlzeiten","class":"menu-absence"},{"text":"Befreiungen","icon":"ion-ios-flag","link":"befreiungen","class":"menu-absence"},{"text":"Hausaufgaben","icon":"ion-ios-book","link":"startseite.hausaufgaben","class":"menu-classbook"},{"text":"Klassenbucheinträge","icon":"ion-ios-book","link":"klassenbucheintrage","class":"menu-classbook"},{"text":"Klassendienste","icon":"ion-ios-book","link":"klassendienste","class":"menu-classbook"}];
+    return '[{"text":"Start","icon":"ion-ios-home","link":"startseite.start","class":""},{"text":"Sprechstunden","icon":"ion-ios-telephone","link":"sprechstunden","class":"menu-timetable"},{"text":"Stundenplan","icon":"ion-ios-calendar-outline","link":"startseite.stundenplanHeute","class":"menu-timetable"},{"text":"Mein Unterricht","icon":"ion-ios-bookmarks","link":"meinUnterricht","class":"menu-lesson"},{"text":"Unterricht Schüler","icon":"ion-ios-bookmarks","link":"unterrichtSchuler","class":"menu-lesson"},{"text":"Prüfungen","icon":"ion-ios-bookmarks","link":"startseite.prufungen","class":"menu-lesson"},{"text":"Tagesunterricht Klassen","icon":"ion-ios-bookmarks","link":"tagesunterrichtKlassen","class":"menu-lesson"},{"text":"Meine Abwesenheiten","icon":"ion-ios-flag","link":"meineAbwesenheiten","class":"menu-absence"},{"text":"Fehlzeiten","icon":"ion-ios-flag","link":"fehlzeiten","class":"menu-absence"},{"text":"Befreiungen","icon":"ion-ios-flag","link":"befreiungen","class":"menu-absence"},{"text":"Hausaufgaben","icon":"ion-ios-book","link":"startseite.hausaufgaben","class":"menu-classbook"},{"text":"Klassenbucheinträge","icon":"ion-ios-book","link":"klassenbucheintrage","class":"menu-classbook"},{"text":"Klassendienste","icon":"ion-ios-book","link":"klassendienste","class":"menu-classbook"}]';
 }
