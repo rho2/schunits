@@ -1,4 +1,7 @@
 #### 27.12.16
+* Pr&uuml;fung hat per Swioe nach links in den Kalender hinzugef&uuml;gt werden
+---
+#### 27.12.16
 * QR-Code Scan beim Login inzugef&uuml;gt
 ---
 #### 26.12.16

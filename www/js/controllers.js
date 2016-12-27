@@ -410,7 +410,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         }, 100);
 })
 
-.controller('prufungenCtrl', function($scope, $state, ExamService, ionicToast, DateChoiceService) {
+.controller('prufungenCtrl', function($scope, $state, $cordovaCalendar, ExamService, ionicToast, DateChoiceService) {
 
     DateChoiceService.set($scope, 'TILL_END_OF_SCHOOLYEAR', true);
 
@@ -431,6 +431,30 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         }).finally(function() {
             $scope.$broadcast('scroll.refreshComplete');
         });
+    }
+
+    $scope.addToCalender = function(exam){
+
+        var calInter = $scope.settings.calInter ;
+
+        var parts = exam.date.split(".");
+        var startDate = new Date(parseInt(parts[2], 10),parseInt(parts[1], 10) - 1,parseInt(parts[0], 10));
+        var time1 = exam.start.split(":")
+        startDate.setHours(parseInt(time1[0]))
+        startDate.setMinutes(parseInt(time1[1]))
+        // end
+        var endDate = new Date(parseInt(parts[2], 10),parseInt(parts[1], 10) - 1,parseInt(parts[0], 10));
+        var time2 = exam.end.split(":")
+        endDate.setHours(parseInt(time2[0]))
+        endDate.setMinutes(parseInt(time2[1]))
+
+        var title = exam.subject_short + '-' + exam.typ + ': ' + exam.name
+        var eventLocation = exam.room;
+        var notes = exam.text;
+        var calOptions = window.plugins.calendar.getCalendarOptions();
+        calOptions.firstReminderMinutes = null
+
+        addToCalender(title, eventLocation, notes, startDate, endDate, calOptions, calInter, ionicToast)
     }
 
     $scope.data = JSON.parse(localStorage.c_exam || '{}')
@@ -886,10 +910,35 @@ var shortDateString = function(s){
 
 var loadSettings = function(scope){
     scope.$on("$ionicView.beforeEnter", function(event, data){
-        scope.settings = JSON.parse(localStorage.settings || '{}');
+        scope.settings = JSON.parse(localStorage.settings || defSettings);
         console.log(scope.settings)
     });
 }
+
+var addToCalender = function(title, eventLocation, notes, startDate, endDate, calOptions, calInter, ionicToast){
+    window.plugins.calendar.findEvent(title, eventLocation, notes, startDate, endDate,
+        function (result) {
+            if(!result.length){
+                if(calInter){
+                    window.plugins.calendar.createEventInteractivelyWithOptions(title, eventLocation, notes, startDate, endDate,calOptions,function (result) {}, function (err) {});
+                }
+                else{
+                    window.plugins.calendar.createEventWithOptions(title, eventLocation, notes, startDate, endDate, calOptions,
+                        function (result) {ionicToast.show('Zum Kalender hinzugefügt', 'top', false, 1000);}, 
+                        function (err) {ionicToast.show(err, 'top', false, 1000);}
+                    );
+                }
+            }
+            else{
+                ionicToast.show('Bereits im Kalender', 'top', false, 1000);
+            }
+        }, 
+        function (err) {
+             ionicToast.show(err, 'top', false, 1000);
+    });    
+}
+
+var defSettings = '{"darkmode":false,"calInter":true}'
 
 var defaultMenu = function(){
     return '[{"text":"Start","icon":"ion-ios-home","link":"startseite.start","class":""},{"text":"Sprechstunden","icon":"ion-ios-telephone","link":"sprechstunden","class":"menu-timetable"},{"text":"Stundenplan","icon":"ion-ios-calendar-outline","link":"startseite.stundenplanHeute","class":"menu-timetable"},{"text":"Mein Unterricht","icon":"ion-ios-bookmarks","link":"meinUnterricht","class":"menu-lesson"},{"text":"Unterricht Schüler","icon":"ion-ios-bookmarks","link":"unterrichtSchuler","class":"menu-lesson"},{"text":"Prüfungen","icon":"ion-ios-bookmarks","link":"startseite.prufungen","class":"menu-lesson"},{"text":"Tagesunterricht Klassen","icon":"ion-ios-bookmarks","link":"tagesunterrichtKlassen","class":"menu-lesson"},{"text":"Meine Abwesenheiten","icon":"ion-ios-flag","link":"meineAbwesenheiten","class":"menu-absence"},{"text":"Fehlzeiten","icon":"ion-ios-flag","link":"fehlzeiten","class":"menu-absence"},{"text":"Befreiungen","icon":"ion-ios-flag","link":"befreiungen","class":"menu-absence"},{"text":"Hausaufgaben","icon":"ion-ios-book","link":"startseite.hausaufgaben","class":"menu-classbook"},{"text":"Klassenbucheinträge","icon":"ion-ios-book","link":"klassenbucheintrage","class":"menu-classbook"},{"text":"Klassendienste","icon":"ion-ios-book","link":"klassendienste","class":"menu-classbook"}]';
