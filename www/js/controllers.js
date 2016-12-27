@@ -58,7 +58,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
 	$scope.change = function(){
 		$scope.typ = ($scope.typ == 5)? 1 : 5;
-		$scope.popover.hide();
 	    $scope.reload();
 	}
 
@@ -81,26 +80,24 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
         TimetableService.load($scope.date, $scope.typ).then(function(response) {
             $scope.data = response;
-            if(!$scope.full){
-	            try {
-	                $scope.start = Object.keys($scope.data).indexOf($scope.dates) || 0;
-	                $scope.swiper.slideTo($scope.start)
-	            } catch (err) {
-	                LoggingService.log('TimetableSwipe', err)
-	            }
-	        }
-            else{
-                
-
-                $scope.swiperw.slideTo(1, 0)
-            }
-            
         }).catch(function(error) {
             ionicToast.show(error.status + '\n' + error.statusText, 'top', false, 1000);
 
         }).finally(function() {
         	$scope.reDates();
             $scope.$broadcast('scroll.refreshComplete');
+
+            if(!$scope.full){
+                try {
+                    $scope.start = Object.keys($scope.data).indexOf($scope.dates) || 0;
+                    $scope.swiper.slideTo($scope.start)
+                } catch (err) {
+                    LoggingService.log('TimetableSwipe', err)
+                }
+            }
+            else{
+                $scope.swiperw.slideTo(1, 0)
+            }
         });
     };
 
@@ -113,8 +110,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 		$scope.date.setDate($scope.date.getDate() - 7);
     	$scope.reload();
     }
-
-
 
     $scope.reDates = function(){
     	var s = dateString(getMonday($scope.date));

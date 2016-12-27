@@ -14,12 +14,12 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                 try {
                     var headers = ["start", "end", "subject", "teacher", "text"];
                     var table = parseTable(response, headers, "list");
-                    localStorage.c_homework = JSON.stringify(table);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
                     LoggingService.log('error', '')
                 }
+                localStorage.c_homework = JSON.stringify(table) || '{}';
                 deferred.resolve(table);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
@@ -51,12 +51,12 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['subject'] = getOnlyText(a[0])
                         data[i]['subject_short'] = getOnlyText(a[1])
                     }
-                    localStorage.c_exam = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
                     LoggingService.log('error', '')
                 }
+                localStorage.c_exam = JSON.stringify(data) || '{}' ;
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
@@ -86,12 +86,12 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                     for (var i = 0; i < data.length; i++) {
                         data[i]['mail'] = getOnlyText(data[i]['mail'])
                     }
-                    localStorage.c_office_hour = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
                     LoggingService.log('error', '')
                 }
+                localStorage.c_office_hour = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
@@ -125,12 +125,12 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['subject'] = getOnlyText(b[0])
                         data[i]['subject_short'] = getOnlyText(b[1])
                     }
-                    localStorage.c_lesson_list = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
                     LoggingService.log('error', '')
                 }
+                localStorage.c_lesson_list = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
@@ -164,12 +164,12 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['subject'] = getOnlyText(b[0])
                         data[i]['subject_short'] = getOnlyText(b[1])
                     }
-                    localStorage.c_lesson_student = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
                     LoggingService.log('error', '')
                 }
+                localStorage.c_lesson_student = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
@@ -209,12 +209,12 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['homework'] = getOnlyText(e[1])
                         data[i]['room'] = getOnlyText(data[i]['room'])
                     }
-                    localStorage.c_lesson_klasse = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
                     LoggingService.log('error', '')
                 }
+                localStorage.c_lesson_klasse = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
@@ -250,12 +250,12 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         var c = parseInt(b[1])
                         data[i]['icon'] = icons[c]
                     }
-                    localStorage.c_class_service = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
                     LoggingService.log('error', '')
                 }
+                localStorage.c_class_service = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
@@ -292,12 +292,12 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         var b = tmp.firstChild.value
                         data[i]['counts'] = b
                     }
-                    localStorage.c_absence_times = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
                     LoggingService.log('error', '')
                 }
+                localStorage.c_absence_times = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
@@ -329,12 +329,12 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         var a = data[i]['typ'].split('</tooltip>')
                         data[i]['typ'] = getOnlyText(a[0])
                     }
-                    localStorage.c_absence_list = JSON.stringify(data);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
                     LoggingService.log('error', '')
                 }
+                localStorage.c_absence_list = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
@@ -452,8 +452,6 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                     
                     var header = ['', 'class_name', 'teacher', 'subject', 'room']
                     var headerl = ['', 'class_name_long', 'teacher_long', 'subject_long', 'room_long']
-                    
-                    console.log(e)
 
                     //Fuelle elem mit den Daten aus e. Der erste Index ist die ID des jeweiligen Elementes, die zweite der Typ
                     // 1:Klasse | 2:Lehrer | 3:Fach | 4:Raum | 5:Schueler
@@ -546,12 +544,12 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         }
 
                     }
-                    localStorage['c_timetable_'+d] = JSON.stringify(periods);
                 } catch (err) {
                     LoggingService.log('error', JSON.stringify(err))
                     LoggingService.log('error', JSON.stringify(response))
                     LoggingService.log('error', '')
                 }
+                localStorage['c_timetable_'+d] = JSON.stringify(periods);
                 deferred.resolve(periods);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
