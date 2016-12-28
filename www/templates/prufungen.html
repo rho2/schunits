@@ -1,14 +1,16 @@
-<ion-view title="Prüfungen" black>
+<ion-view title="Prüfungen">
+  <footerc ></footerc>
 
-	<footerc></footerc>
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-ios-more" ng-click="more()"></button>
+  </ion-nav-buttons>
 
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true" class="has-header" black>
 
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()">
     </ion-refresher>
 
   	<ion-list>
-    <div black>
 
       <ion-item ng-repeat="exam in data" class="c-list-item " padding="true" ng-click="examClick(exam)" on-swipe-left="addToCalender(exam)">
   			
@@ -22,7 +24,6 @@
     				<div class="col col-10 royal tar">{{exam.subject_short}}</div>
     			</div>
         </ion-item>
-        </div>
     </ion-list>
 
     <div class="h50"></div>

@@ -549,7 +549,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                     LoggingService.log('error', JSON.stringify(response))
                     LoggingService.log('error', '')
                 }
-                localStorage['c_timetable_'+d] = JSON.stringify(periods);
+                localStorage['c_timetable_'+d] = JSON.stringify(periods) || '{}';
                 deferred.resolve(periods);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))

@@ -1,5 +1,9 @@
+#### 28.12.16
+* Weitere Funktionen per swipe-up verwendbar
+* Alle Pr&uuml;fungen k&ouml;nnen entweder manuell (wie oben beschrieben) oder automatische dem Kalender hinzugef&uuml;gt werden
+---
 #### 27.12.16
-* Pr&uuml;fung hat per Swioe nach links in den Kalender hinzugef&uuml;gt werden
+* Pr&uuml;fung hat per Swipe nach links in den Kalender hinzugef&uuml;gt werden
 ---
 #### 27.12.16
 * QR-Code Scan beim Login inzugef&uuml;gt

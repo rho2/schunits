@@ -71,7 +71,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
         if(!$scope.timegrid){
             try{
-                $scope.timegrid = JSON.parse(localStorage.timegrid);
+                $scope.timegrid = JSON.parse(localStorage.timegrid || '{}');
             }
             catch(err){}
         }
@@ -410,7 +410,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         }, 100);
 })
 
-.controller('prufungenCtrl', function($scope, $state, $cordovaCalendar, ExamService, ionicToast, DateChoiceService) {
+.controller('prufungenCtrl', function($scope, $state, $cordovaCalendar,$ionicActionSheet, ExamService, ionicToast, DateChoiceService) {
 
     DateChoiceService.set($scope, 'TILL_END_OF_SCHOOLYEAR', true);
 
@@ -425,6 +425,10 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         ExamService.getData(d).then(function(response) {
             $scope.data = response;
 
+            if($scope.settings.examSync){
+                $scope.addAll();
+            }
+
         }).catch(function(error) {
             ionicToast.show(error.status + '\n' + error.statusText, 'top', false, 1000);
 
@@ -433,28 +437,89 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         });
     }
 
-    $scope.addToCalender = function(exam){
+    var parseDate = function(parts, time){
+        var date = new Date(parseInt(parts[2], 10),parseInt(parts[1], 10) - 1,parseInt(parts[0], 10));
+        var t = time.split(":")
+        date.setHours(parseInt(t[0]))
+        date.setMinutes(parseInt(t[1]))
+        return date;
+    }
 
-        var calInter = $scope.settings.calInter ;
-
+    var parseExam = function(exam){
         var parts = exam.date.split(".");
-        var startDate = new Date(parseInt(parts[2], 10),parseInt(parts[1], 10) - 1,parseInt(parts[0], 10));
-        var time1 = exam.start.split(":")
-        startDate.setHours(parseInt(time1[0]))
-        startDate.setMinutes(parseInt(time1[1]))
-        // end
-        var endDate = new Date(parseInt(parts[2], 10),parseInt(parts[1], 10) - 1,parseInt(parts[0], 10));
-        var time2 = exam.end.split(":")
-        endDate.setHours(parseInt(time2[0]))
-        endDate.setMinutes(parseInt(time2[1]))
+        
+        return {
+            title: exam.subject_short + '-' + exam.typ||'' + ': ' + exam.name||'',
+            location: exam.room,
+            notes: exam.text,
+            startDate: parseDate(parts, exam.start),
+            endDate: parseDate(parts, exam.end)
+        }
 
-        var title = exam.subject_short + '-' + exam.typ + ': ' + exam.name
-        var eventLocation = exam.room;
-        var notes = exam.text;
+
+    }
+
+    $scope.addToCalender = function(exam){
+        var calInter = $scope.settings.calInter ;
+        var e = parseExam(exam);        
+        addToCalender(e.title, e.location, e.notes, e.startDate, e.endDate, calInter, ionicToast)
+    }
+
+    $scope.addAll = function(){
         var calOptions = window.plugins.calendar.getCalendarOptions();
         calOptions.firstReminderMinutes = null
 
-        addToCalender(title, eventLocation, notes, startDate, endDate, calOptions, calInter, ionicToast)
+        var exams = $scope.data.slice(0);
+
+        var add = function(){
+
+            if(exams.length == 0){
+                ionicToast.show('Alle hinzugefügt', 'top', false, 1000);
+                return;
+            }
+
+            var e = parseExam(exams[0]);
+            window.plugins.calendar.findEvent(e.title, e.location, e.notes, e.startDate, e.endDate,
+                function (result) {
+                    if(!result.length){
+                        window.plugins.calendar.createEventWithOptions(e.title, e.location, e.notes, e.startDate, e.endDate, calOptions,
+                            function (result) {
+                                exams.splice(0, 1);
+                                add();
+                            }, 
+                            function (err) {
+                                
+                            }
+                        );
+                    }
+                    else{
+                        exams.splice(0, 1);
+                        add();
+                    }
+            }, function (err) {
+
+            }); 
+        }
+
+        add();
+
+        
+    }
+
+    $scope.more = function(){
+        $ionicActionSheet.show({
+          buttons: [
+            { text: '<i class="icon ion-ios-calendar-outline"></i> Alle in Kalender' },
+          ],
+          buttonClicked: function(index) {
+            switch(index){
+                case 0:
+                    $scope.addAll()
+                    break;
+            }
+            return true;
+          }
+        });
     }
 
     $scope.data = JSON.parse(localStorage.c_exam || '{}')
@@ -915,7 +980,15 @@ var loadSettings = function(scope){
     });
 }
 
-var addToCalender = function(title, eventLocation, notes, startDate, endDate, calOptions, calInter, ionicToast){
+var addToCalender = function(title, eventLocation, notes, startDate, endDate, calInter, ionicToast){
+
+    console.log(title)
+
+    var calOptions = window.plugins.calendar.getCalendarOptions();
+    calOptions.firstReminderMinutes = null
+
+    ionicToast = ionicToast || {show: function(a,b,c,d){console.log('a')}}
+
     window.plugins.calendar.findEvent(title, eventLocation, notes, startDate, endDate,
         function (result) {
             if(!result.length){
@@ -938,7 +1011,7 @@ var addToCalender = function(title, eventLocation, notes, startDate, endDate, ca
     });    
 }
 
-var defSettings = '{"darkmode":false,"calInter":true}'
+var defSettings = '{"darkmode": false,"calInter": true,"examSync": false}'
 
 var defaultMenu = function(){
     return '[{"text":"Start","icon":"ion-ios-home","link":"startseite.start","class":""},{"text":"Sprechstunden","icon":"ion-ios-telephone","link":"sprechstunden","class":"menu-timetable"},{"text":"Stundenplan","icon":"ion-ios-calendar-outline","link":"startseite.stundenplanHeute","class":"menu-timetable"},{"text":"Mein Unterricht","icon":"ion-ios-bookmarks","link":"meinUnterricht","class":"menu-lesson"},{"text":"Unterricht Schüler","icon":"ion-ios-bookmarks","link":"unterrichtSchuler","class":"menu-lesson"},{"text":"Prüfungen","icon":"ion-ios-bookmarks","link":"startseite.prufungen","class":"menu-lesson"},{"text":"Tagesunterricht Klassen","icon":"ion-ios-bookmarks","link":"tagesunterrichtKlassen","class":"menu-lesson"},{"text":"Meine Abwesenheiten","icon":"ion-ios-flag","link":"meineAbwesenheiten","class":"menu-absence"},{"text":"Fehlzeiten","icon":"ion-ios-flag","link":"fehlzeiten","class":"menu-absence"},{"text":"Befreiungen","icon":"ion-ios-flag","link":"befreiungen","class":"menu-absence"},{"text":"Hausaufgaben","icon":"ion-ios-book","link":"startseite.hausaufgaben","class":"menu-classbook"},{"text":"Klassenbucheinträge","icon":"ion-ios-book","link":"klassenbucheintrage","class":"menu-classbook"},{"text":"Klassendienste","icon":"ion-ios-book","link":"klassendienste","class":"menu-classbook"}]';
