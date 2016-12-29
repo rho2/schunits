@@ -4,10 +4,14 @@
         <button class="button button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>
     </ion-nav-buttons>
 
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-ios-calendar-outline" ng-click="addAll()"></button>
+    </ion-nav-buttons>
+
     <ion-content padding="true" black >
         <ion-list padding="true">
         <div black>
-            <ion-item ng-repeat="holiday in data" class="c-list-item " padding="true">
+            <ion-item ng-repeat="holiday in data" class="c-list-item " padding="true" ng-click="addToCal(holiday)">
 
                 <div class="row">
                     <div class="col tal">{{ holiday.longName }}</div>

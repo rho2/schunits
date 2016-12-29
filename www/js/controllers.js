@@ -455,8 +455,6 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
             startDate: parseDate(parts, exam.start),
             endDate: parseDate(parts, exam.end)
         }
-
-
     }
 
     $scope.addToCalender = function(exam){
@@ -804,7 +802,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     }, 100);
 })
 
-.controller('feiertageCtrl', function($scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicPlatform) {
+.controller('feiertageCtrl', function($scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicPlatform, ionicToast, $ionicPopup) {
 
     $scope.$on("$ionicView.beforeEnter", function(event, data) {
         $scope.data = JSON.parse(localStorage.holidays);
@@ -813,6 +811,80 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     $scope.goBack = function() {
         
         goBack($ionicHistory);
+    }
+
+    var parseHoliday = function(h){     
+
+        var start = new Date(h.startDate);
+        start.setHours(0,0,0,0);
+
+        var end = new Date(h.endDate)
+        end.setHours(0,0,0,0);
+
+        return {
+            title: h.longName,
+            startDate: start,
+            endDate: end
+        }
+    }
+
+    $scope.addToCal = function(h){
+        var calInter = $scope.settings.calInter ;
+        var e = parseHoliday(h); 
+        addToCalender(e.title, e.location, e.notes, e.startDate, e.endDate, calInter, ionicToast)
+    }
+
+    $scope.addAll = function(){
+        var confirmPopup = $ionicPopup.confirm({
+             template: 'Alle Feiertage zum Kalender hinzufügen?'
+        });
+
+        confirmPopup.then(function(res) {
+            if(res) {
+                add();
+            } else {
+                return;
+            }
+        });
+
+
+        var calOptions = window.plugins.calendar.getCalendarOptions();
+        calOptions.firstReminderMinutes = null
+
+        var holi = $scope.data.slice(0);
+
+        var add = function(){
+
+            if(holi.length == 0){
+                ionicToast.show('Alle hinzugefügt', 'top', false, 1000);
+                return;
+            }
+
+            var e = parseHoliday(holi[0]);
+            window.plugins.calendar.findEvent(e.title, e.location, e.notes, e.startDate, e.endDate,
+                function (result) {
+                    if(!result.length){
+                        window.plugins.calendar.createEventWithOptions(e.title, e.location, e.notes, e.startDate, e.endDate, calOptions,
+                            function (result) {
+                                holi.splice(0, 1);
+                                add();
+                            }, 
+                            function (err) {
+                                
+                            }
+                        );
+                    }
+                    else{
+                        holi.splice(0, 1);
+                        add();
+                    }
+            }, function (err) {
+
+            }); 
+        }
+
+        
+
     }
 
     $ionicPlatform.onHardwareBackButton(function() {
@@ -981,8 +1053,6 @@ var loadSettings = function(scope){
 }
 
 var addToCalender = function(title, eventLocation, notes, startDate, endDate, calInter, ionicToast){
-
-    console.log(title)
 
     var calOptions = window.plugins.calendar.getCalendarOptions();
     calOptions.firstReminderMinutes = null

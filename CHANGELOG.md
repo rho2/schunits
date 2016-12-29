@@ -1,3 +1,6 @@
+#### 29.12.16
+* Feiertage k&ouml;nnen einzeln (per klick) oder komplett (klick auf das Kalendersymbol) dem Kalender hinzugef&uuml;ft werden.
+---
 #### 28.12.16
 * Weitere Funktionen per swipe-up verwendbar
 * Alle Pr&uuml;fungen k&ouml;nnen entweder manuell (wie oben beschrieben) oder automatische dem Kalender hinzugef&uuml;gt werden
