@@ -1,3 +1,7 @@
+#### 30.12.16
+* Pr&uuml;fungen k&ouml;nnen sortiert werden
+* Die Note bei Pr&uuml;fungen wird, falls vorhanden, in der Listenansicht angezeigt
+---
 #### 29.12.16
 * Feiertage k&ouml;nnen einzeln (per klick) oder komplett (klick auf das Kalendersymbol) dem Kalender hinzugef&uuml;ft werden.
 ---

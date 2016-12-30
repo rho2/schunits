@@ -414,6 +414,31 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
     DateChoiceService.set($scope, 'TILL_END_OF_SCHOOLYEAR', true);
 
+    // 0: date, 1: fach, 2: raum, 3:note
+    $scope.sort = 0;
+    var getIcon = function(i){
+        return ($scope.sort == i ? 'ion-ios-circle-filled' : 'ion-ios-circle-outline')
+    }
+
+    var sort = function(){
+        switch($scope.sort){
+            case 0:
+                $scope.data.sort(sort_by('date', false, function(a){return pDate(a)}));
+                break;
+            case 1:
+                $scope.data.sort(sort_by('subject', false, function(a){return a.toUpperCase()}));
+                break;
+            case 2:
+                $scope.data.sort(sort_by('room', false, function(a){return a.toUpperCase()}));
+                break;
+            case 3:
+                $scope.data.sort(sort_by('mark', true, function(a){return parseInt(a) || 0}));
+                break;
+
+        }
+        console.log($scope.data)
+    }
+
     $scope.examClick = function(exam) {
         ExamService.selectedExam = exam
         goTo($state, 'prufungenDetail')
@@ -500,19 +525,25 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         }
 
         add();
-
-        
     }
 
     $scope.more = function(){
         $ionicActionSheet.show({
           buttons: [
             { text: '<i class="icon ion-ios-calendar-outline"></i> Alle in Kalender' },
+            { text: '<i class="icon ' + getIcon(0) + '"></i>Nach Datum sortieren'},
+            { text: '<i class="icon ' + getIcon(1) + '"></i>Nach Fach sortieren'},
+            { text: '<i class="icon ' + getIcon(2) + '"></i>Nach Raum sortieren'},
+            { text: '<i class="icon ' + getIcon(3) + '"></i>Nach Note sortieren'}
           ],
           buttonClicked: function(index) {
             switch(index){
                 case 0:
                     $scope.addAll()
+                    break;
+                default:
+                    $scope.sort = index - 1;
+                    sort();
                     break;
             }
             return true;
@@ -1085,6 +1116,24 @@ var defSettings = '{"darkmode": false,"calInter": true,"examSync": false}'
 
 var defaultMenu = function(){
     return '[{"text":"Start","icon":"ion-ios-home","link":"startseite.start","class":""},{"text":"Sprechstunden","icon":"ion-ios-telephone","link":"sprechstunden","class":"menu-timetable"},{"text":"Stundenplan","icon":"ion-ios-calendar-outline","link":"startseite.stundenplanHeute","class":"menu-timetable"},{"text":"Mein Unterricht","icon":"ion-ios-bookmarks","link":"meinUnterricht","class":"menu-lesson"},{"text":"Unterricht Schüler","icon":"ion-ios-bookmarks","link":"unterrichtSchuler","class":"menu-lesson"},{"text":"Prüfungen","icon":"ion-ios-bookmarks","link":"startseite.prufungen","class":"menu-lesson"},{"text":"Tagesunterricht Klassen","icon":"ion-ios-bookmarks","link":"tagesunterrichtKlassen","class":"menu-lesson"},{"text":"Meine Abwesenheiten","icon":"ion-ios-flag","link":"meineAbwesenheiten","class":"menu-absence"},{"text":"Fehlzeiten","icon":"ion-ios-flag","link":"fehlzeiten","class":"menu-absence"},{"text":"Befreiungen","icon":"ion-ios-flag","link":"befreiungen","class":"menu-absence"},{"text":"Hausaufgaben","icon":"ion-ios-book","link":"startseite.hausaufgaben","class":"menu-classbook"},{"text":"Klassenbucheinträge","icon":"ion-ios-book","link":"klassenbucheintrage","class":"menu-classbook"},{"text":"Klassendienste","icon":"ion-ios-book","link":"klassendienste","class":"menu-classbook"}]';
+}
+
+var pDate = function(d){
+    var parts = d.split(".");
+    return new Date(parseInt(parts[2], 10),parseInt(parts[1], 10) - 1,parseInt(parts[0], 10));
+}
+
+var sort_by = function(field, reverse, primer){
+
+   var key = primer ? 
+       function(x) {return primer(x[field])} : 
+       function(x) {return x[field]};
+
+   reverse = !reverse ? 1 : -1;
+
+   return function (a, b) {
+       return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+     } 
 }
 
 var getParameterByName = function(name, url) {
