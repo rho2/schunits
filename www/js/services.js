@@ -725,7 +725,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
             scope.choice = {
                 value: def
             };
-
+            
             var d1 = getMonday(new Date())
             var d2 = new Date();
             d2.setDate(d1.getDate() + 6);

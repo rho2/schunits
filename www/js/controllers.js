@@ -414,10 +414,18 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
     DateChoiceService.set($scope, 'TILL_END_OF_SCHOOLYEAR', true);
 
-    // 0: date, 1: fach, 2: raum, 3:note
     $scope.sort = 0;
-    var getIcon = function(i){
+    $scope.getIcon = function(i){
         return ($scope.sort == i ? 'ion-ios-circle-filled' : 'ion-ios-circle-outline')
+    }
+
+    var getButtons = function(){
+        return [
+            { text: '<i class="icon ion-ios-calendar-outline"></i> Alle in Kalender' },
+            { text: '<i class="icon ' + $scope.getIcon(0) + '"></i>Nach Datum sortieren'},
+            { text: '<i class="icon ' + $scope.getIcon(1) + '"></i>Nach Fach sortieren'},
+            { text: '<i class="icon ' + $scope.getIcon(2) + '"></i>Nach Note sortieren'}
+        ]
     }
 
     var sort = function(){
@@ -429,37 +437,9 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
                 $scope.data.sort(sort_by('subject', false, function(a){return a.toUpperCase()}));
                 break;
             case 2:
-                $scope.data.sort(sort_by('room', false, function(a){return a.toUpperCase()}));
-                break;
-            case 3:
                 $scope.data.sort(sort_by('mark', true, function(a){return parseInt(a) || 0}));
                 break;
-
         }
-        console.log($scope.data)
-    }
-
-    $scope.examClick = function(exam) {
-        ExamService.selectedExam = exam
-        goTo($state, 'prufungenDetail')
-    };
-
-    $scope.reload = function() {
-        var d = $scope.getParam();
-
-        ExamService.getData(d).then(function(response) {
-            $scope.data = response;
-
-            if($scope.settings.examSync){
-                $scope.addAll();
-            }
-
-        }).catch(function(error) {
-            ionicToast.show(error.status + '\n' + error.statusText, 'top', false, 1000);
-
-        }).finally(function() {
-            $scope.$broadcast('scroll.refreshComplete');
-        });
     }
 
     var parseDate = function(parts, time){
@@ -529,13 +509,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
     $scope.more = function(){
         $ionicActionSheet.show({
-          buttons: [
-            { text: '<i class="icon ion-ios-calendar-outline"></i> Alle in Kalender' },
-            { text: '<i class="icon ' + getIcon(0) + '"></i>Nach Datum sortieren'},
-            { text: '<i class="icon ' + getIcon(1) + '"></i>Nach Fach sortieren'},
-            { text: '<i class="icon ' + getIcon(2) + '"></i>Nach Raum sortieren'},
-            { text: '<i class="icon ' + getIcon(3) + '"></i>Nach Note sortieren'}
-          ],
+          buttons: getButtons(),
           buttonClicked: function(index) {
             switch(index){
                 case 0:
@@ -548,6 +522,29 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
             }
             return true;
           }
+        });
+    }
+
+    $scope.examClick = function(exam) {
+        ExamService.selectedExam = exam
+        goTo($state, 'prufungenDetail')
+    };
+
+    $scope.reload = function() {
+        var d = $scope.getParam();
+
+        ExamService.getData(d).then(function(response) {
+            $scope.data = response;
+            sort();
+            if($scope.settings.examSync){
+                $scope.addAll();
+            }
+
+        }).catch(function(error) {
+            ionicToast.show(error.status + '\n' + error.statusText, 'top', false, 1000);
+
+        }).finally(function() {
+            $scope.$broadcast('scroll.refreshComplete');
         });
     }
 
@@ -693,9 +690,56 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
 .controller('klassenbucheintrageCtrl', function($scope, $stateParams) {})
 
-.controller('hausaufgabenCtrl', function($scope, $state, HomeworkService, ionicToast, DateChoiceService) {
+.controller('hausaufgabenCtrl', function($scope, $state,$ionicActionSheet, HomeworkService, ionicToast, DateChoiceService) {
 
     DateChoiceService.set($scope, 'CURRENT_WEEK');
+
+    $scope.sort = 0;
+    $scope.getIcon = function(i){
+        return ($scope.sort == i ? 'ion-ios-circle-filled' : 'ion-ios-circle-outline')
+    }
+
+    var getButtons = function(){
+        return [
+            { text: '<i class="icon ion-ios-calendar-outline"></i> Alle in Kalender' },
+            { text: '<i class="icon ' + $scope.getIcon(0) + '"></i>Nach Aufgabedatum sortieren'},
+            { text: '<i class="icon ' + $scope.getIcon(1) + '"></i>Nach Abgabedatum sortieren'},
+            { text: '<i class="icon ' + $scope.getIcon(2) + '"></i>Nach Fach sortieren'}
+        ]
+    }
+
+    var sort = function(){
+        console.log($scope.data)
+        switch($scope.sort){
+            case 0:
+                $scope.data.sort(sort_by('start', false, function(a){return pDate(a.substring(3))}));
+                break;
+            case 1:
+                $scope.data.sort(sort_by('end', false, function(a){return pDate(a.substring(3))}));
+                break;
+            case 2:
+                $scope.data.sort(sort_by('subject', false, function(a){return a.toUpperCase()}));
+                break;
+        }
+    }
+
+    $scope.more = function(){
+        $ionicActionSheet.show({
+          buttons: getButtons(),
+          buttonClicked: function(index) {
+            switch(index){
+                case 0:
+                    $scope.addAll()
+                    break;
+                default:
+                    $scope.sort = index - 1;
+                    sort();
+                    break;
+            }
+            return true;
+          }
+        });
+    }
 
     $scope.homeworkClick = function(homework) {
         HomeworkService.selectedHomework = homework

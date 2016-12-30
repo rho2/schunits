@@ -1,8 +1,12 @@
-<ion-view title="Hausaufgaben" black>
+<ion-view title="Hausaufgaben">
 
   <footerc></footerc>
 
-  <ion-content padding="true" >
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-ios-more" ng-click="more()"></button>
+  </ion-nav-buttons>
+
+  <ion-content padding="true" black>
 
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()"></ion-refresher>
 

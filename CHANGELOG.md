@@ -1,4 +1,7 @@
 #### 30.12.16
+* Hausaufgaben kk&ouml;nnen sortiert werden
+---
+#### 30.12.16
 * Pr&uuml;fungen k&ouml;nnen sortiert werden
 * Die Note bei Pr&uuml;fungen wird, falls vorhanden, in der Listenansicht angezeigt
 ---
