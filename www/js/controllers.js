@@ -725,14 +725,18 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
     var parseHomework = function(h){
         var ds = h.end.substring(3).split(".");
-        var date = new Date(parseInt(ds[2], 10),parseInt(ds[1], 10) - 1,parseInt(ds[0], 10));
-        date.setHours(0,0,0,0);
+        
+        var start = new Date(parseInt(ds[2], 10),parseInt(ds[1], 10) - 1,parseInt(ds[0], 10));
+        start.setHours(0);
+
+        var end = new Date(parseInt(ds[2], 10),parseInt(ds[1], 10) - 1,parseInt(ds[0], 10));
+        end.setHours(24);
 
         return {
-            title: h.subject + '-Hausaufgabe: ' + h.text,
+            title: h.subject + '-Hausaufgabe: ' + h.text.substring(0,7) + '...',
             notes: h.text,
-            startDate: date,
-            endDate: date
+            startDate: start,
+            endDate: end
         }
     }
 
@@ -758,6 +762,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
             var e = parseHomework(hom[0]);
             window.plugins.calendar.findEvent(e.title, e.location, e.notes, e.startDate, e.endDate,
                 function (result) {
+                    console.log(result);
                     if(!result.length){
                         window.plugins.calendar.createEventWithOptions(e.title, e.location, e.notes, e.startDate, e.endDate, calOptions,
                             function (result) {
@@ -765,7 +770,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
                                 add();
                             }, 
                             function (err) {
-                                
+                                console.log(err)    
                             }
                         );
                     }
@@ -774,7 +779,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
                         add();
                     }
             }, function (err) {
-
+                console.log(err)
             }); 
         }
 
@@ -942,17 +947,16 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     });
 
     $scope.goBack = function() {
-        
         goBack($ionicHistory);
     }
 
     var parseHoliday = function(h){     
 
         var start = new Date(h.startDate);
-        start.setHours(0,0,0,0);
+        start.setHours(0);
 
         var end = new Date(h.endDate)
-        end.setHours(0,0,0,0);
+        end.setHours(24);
 
         return {
             title: h.longName,
@@ -964,7 +968,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     $scope.addToCal = function(h){
         var calInter = $scope.settings.calInter ;
         var e = parseHoliday(h); 
-        addToCalender(e.title, e.location, e.notes, e.startDate, e.endDate, calInter, ionicToast)
+        addToCalender(e.title, null, null, e.startDate, e.endDate, calInter, ionicToast)
     }
 
     $scope.addAll = function(){
@@ -997,7 +1001,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
             window.plugins.calendar.findEvent(e.title, e.location, e.notes, e.startDate, e.endDate,
                 function (result) {
                     if(!result.length){
-                        window.plugins.calendar.createEventWithOptions(e.title, e.location, e.notes, e.startDate, e.endDate, calOptions,
+                        window.plugins.calendar.createEventWithOptions(e.title, null, null, e.startDate, e.endDate, calOptions,
                             function (result) {
                                 holi.splice(0, 1);
                                 add();
@@ -1196,7 +1200,7 @@ var addToCalender = function(title, eventLocation, notes, startDate, endDate, ca
         function (result) {
             if(!result.length){
                 if(calInter){
-                    window.plugins.calendar.createEventInteractivelyWithOptions(title, eventLocation, notes, startDate, endDate,calOptions,function (result) {}, function (err) {});
+                    window.plugins.calendar.createEventInteractivelyWithOptions(title, null, null, startDate, endDate,calOptions,function (result) {}, function (err) {});
                 }
                 else{
                     window.plugins.calendar.createEventWithOptions(title, eventLocation, notes, startDate, endDate, calOptions,
