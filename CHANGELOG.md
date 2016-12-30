@@ -1,12 +1,15 @@
 #### 30.12.16
-* Hausaufgaben kk&ouml;nnen sortiert werden
+* Hausaufgaben k&ouml;nnen, wie Pr&uuml;fungen, dem Kalender hinzugef&uuml;gt werden.
+
+#### 30.12.16
+* Hausaufgaben k&ouml;nnen sortiert werden
 ---
 #### 30.12.16
 * Pr&uuml;fungen k&ouml;nnen sortiert werden
 * Die Note bei Pr&uuml;fungen wird, falls vorhanden, in der Listenansicht angezeigt
 ---
 #### 29.12.16
-* Feiertage k&ouml;nnen einzeln (per klick) oder komplett (klick auf das Kalendersymbol) dem Kalender hinzugef&uuml;ft werden.
+* Feiertage k&ouml;nnen einzeln (per klick) oder komplett (klick auf das Kalendersymbol) dem Kalender hinzugef&uuml;gt werden.
 ---
 #### 28.12.16
 * Weitere Funktionen per swipe-up verwendbar

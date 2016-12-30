@@ -12,7 +12,7 @@
 
       <ion-list>
       <div black>
-      <ion-item ng-repeat="homework in data" class="c-list-item " ng-click="homeworkClick(homework)">
+      <ion-item ng-repeat="homework in data" class="c-list-item " ng-click="homeworkClick(homework)" on-swipe-left="addToCalender(homework)">
         
         <div class="row no-padding">
           <div class="col c-list-text">{{ homework.text }}</div>

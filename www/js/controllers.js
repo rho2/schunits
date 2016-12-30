@@ -723,6 +723,64 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         }
     }
 
+    var parseHomework = function(h){
+        var ds = h.end.substring(3).split(".");
+        var date = new Date(parseInt(ds[2], 10),parseInt(ds[1], 10) - 1,parseInt(ds[0], 10));
+        date.setHours(0,0,0,0);
+
+        return {
+            title: h.subject + '-Hausaufgabe: ' + h.text,
+            notes: h.text,
+            startDate: date,
+            endDate: date
+        }
+    }
+
+    $scope.addToCalender = function(h){
+        var calInter = $scope.settings.calInter;
+        var e = parseHomework(h);        
+        addToCalender(e.title, e.location, e.notes, e.startDate, e.endDate, calInter, ionicToast)
+    }
+
+    $scope.addAll = function(){
+        var calOptions = window.plugins.calendar.getCalendarOptions();
+        calOptions.firstReminderMinutes = null
+
+        var hom = $scope.data.slice(0);
+
+        var add = function(){
+
+            if(hom.length == 0){
+                ionicToast.show('Alle hinzugefügt', 'top', false, 1000);
+                return;
+            }
+
+            var e = parseHomework(hom[0]);
+            window.plugins.calendar.findEvent(e.title, e.location, e.notes, e.startDate, e.endDate,
+                function (result) {
+                    if(!result.length){
+                        window.plugins.calendar.createEventWithOptions(e.title, e.location, e.notes, e.startDate, e.endDate, calOptions,
+                            function (result) {
+                                hom.splice(0, 1);
+                                add();
+                            }, 
+                            function (err) {
+                                
+                            }
+                        );
+                    }
+                    else{
+                        hom.splice(0, 1);
+                        add();
+                    }
+            }, function (err) {
+
+            }); 
+        }
+
+        add();
+    }
+
     $scope.more = function(){
         $ionicActionSheet.show({
           buttons: getButtons(),
