@@ -839,9 +839,95 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     }, 100);
 })
 
-.controller('klassendiensteCtrl', function($scope, $state, ClassServiceService, ionicToast, DateChoiceService) {
+.controller('klassendiensteCtrl', function($scope, $state,$ionicActionSheet, ClassServiceService, ionicToast, DateChoiceService) {
     
     DateChoiceService.set($scope, 'CURRENT_WEEK');
+
+    var p = 9;
+
+    $scope.showAll = true;
+    $scope.sort = 2;
+    $scope.getIcon = function(i){
+        return ($scope.sort == i ? 'ion-ios-circle-filled' : 'ion-ios-circle-outline')
+    }
+
+    var getI = function(){
+        return ($scope.showAll ? 'ion-ios-close-outline assertive' : 'ion-ios-checkmark-outline balanced')
+    }
+
+    var parseDate = function(time){
+        var dates = time.split('-')
+        var parts = dates[0].split('.')
+
+        var c = new Date();
+        var cm = c.getMonth();
+        var cy = c.getFullYear()
+
+        var m = parts[1]
+        var year = 0;
+
+        if(m < p){
+            if(cm < p){
+                year = cy;
+            }
+            else{
+                year = cy + 1;
+            }
+        }else{
+            if(cm < p){
+                year = cy - 1;
+            }
+            else{
+                year = cy;
+            }
+        }
+
+        var date = new Date(year,parseInt(parts[1], 10) - 1,parseInt(parts[0], 10));
+        return date;
+    }
+
+    var getButtons = function(){
+        return [
+            { text: '<i class="icon ' + getI() + '"></i> Nur mich anzeigen'},
+            { text: '<i class="icon ' + $scope.getIcon(0) + '"></i>Nach Datum sortieren'},
+            { text: '<i class="icon ' + $scope.getIcon(1) + '"></i>Nach Name sortieren'},
+            { text: '<i class="icon ' + $scope.getIcon(2) + '"></i>Nach Dienst sortieren'}
+        ]
+    }
+
+    var sort = function(){
+        switch($scope.sort){
+            case 0:
+                $scope.data.sort(sort_by('time', false, function(a){
+                    return parseDate(a)
+                }));
+                break;
+            case 1:
+                $scope.data.sort(sort_by('name', false, function(a){return a.toUpperCase()}));
+                break;
+            case 2:
+                $scope.data.sort(sort_by('service', false, function(a){return a.toUpperCase()}));
+                break;
+        }
+    }
+
+    $scope.more = function(){
+        $ionicActionSheet.show({
+          buttons: getButtons(),
+          buttonClicked: function(index) {
+            switch(index){
+                case 0:
+                    $scope.showAll = !$scope.showAll;
+                    break;
+                default:
+                    $scope.sort = index - 1;
+                    sort();
+                    break;
+            }
+            return true;
+          }
+        });
+    }
 
     $scope.serviceClick = function(service) {
         ClassServiceService.selectedService = service
@@ -853,6 +939,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
         ClassServiceService.getData(d).then(function(response) {
             $scope.data = response;
+            sort();
 
         }).catch(function(error) {
             ionicToast.show(error.status + '\n' + error.statusText, 'top', false, 1000);

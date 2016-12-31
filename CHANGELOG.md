@@ -1,3 +1,6 @@
+#### 31.12.16
+* Klassendienste k&ouml;nnen sortiert werden
+---
 #### 30.12.16
 * Bug gefixt, Hausaufgaben und Feiertage sollten nicht mehr doppelt dem Kalender hinzugef&uuml;gt werden.
 ---

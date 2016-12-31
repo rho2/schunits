@@ -1,15 +1,19 @@
-<ion-view title="Klassendienste" black>
+<ion-view title="Klassendienste">
 
   <footerc></footerc>
   
-  <ion-content padding="true" class="has-header">
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-ios-more" ng-click="more()"></button>
+  </ion-nav-buttons>
+
+  <ion-content padding="true" class="has-header" black>
 
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="reload()">
     </ion-refresher>
   
     <ion-list>
     <div black>
-      <ion-item ng-repeat="service in data" class="c-list-item item-icon-left" padding="true" ng-click="serviceClick(service)">
+      <ion-item ng-repeat="service in data" class="c-list-item item-icon-left" padding="true" ng-click="serviceClick(service)" ng-if="service.name == me || showAll">
         
         <div class="row ">
           <div class="col col-20"><i class="icon {{service.icon}}"></i></div>
