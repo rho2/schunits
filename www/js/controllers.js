@@ -1233,7 +1233,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 .controller('stundenplanCtrl', function($scope, $state) {})
 
 var goTo = function(st, tar){
-    window.plugins.nativepagetransitions.fade(
+    window.plugins.nativepagetransitions.slide(
           {},
           function (msg) {console.log("success: " + msg)}, 
           function (msg) {alert("error: " + msg)} 
@@ -1242,8 +1242,8 @@ var goTo = function(st, tar){
 }
 
 var goBack = function(h){
-    window.plugins.nativepagetransitions.fade(
-          {},
+    window.plugins.nativepagetransitions.slide(
+          {"direction": "right",},
           function (msg) {console.log("success: " + msg)}, 
           function (msg) {alert("error: " + msg)} 
         );

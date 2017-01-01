@@ -11,8 +11,8 @@
     <access origin="*" />
     <allow-intent href="*" />
     <allow-navigation href="*" />
-    <preference name="webviewbounce" value="false" />
-    <preference name="UIWebViewBounce" value="false" />
+    <preference name="webviewbounce" value="true" />
+    <preference name="UIWebViewBounce" value="true" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />

@@ -46,13 +46,13 @@
                                         <div class="{{lesson.cellState || 'HOUR-FREE' }}" ng-hide="lesson.empty">
 
                                             <div class="row">
-                                                <div class="col col-33 ovh ma" style="color: {{lesson.foreColor}} !important;background-color: {{lesson.backColor}};" ng-if="lesson.subject"> {{lesson.subject}}</div>
-                                                <div class="col col-66 tac ovh ma">{{lesson.teacher}}</div>
+                                                <div class="col col-33 ovh ma" style="color: {{::lesson.foreColor}} !important;background-color: {{::lesson.backColor}};" ng-if="lesson.subject"> {{::lesson.subject}}</div>
+                                                <div class="col col-66 tac ovh ma">{{::lesson.teacher}}</div>
                                             </div>
 
                                             <div class="row">
-                                                <div class="col col-33 ovh ma" ng-if="lesson.room">{{lesson.room}}</div>
-                                                <div class="col col-66 tac ovh ma">{{lesson.class_name }}</div>
+                                                <div class="col col-33 ovh ma" ng-if="lesson.room">{{::lesson.room}}</div>
+                                                <div class="col col-66 tac ovh ma">{{::lesson.class_name }}</div>
                                             </div>
 
                                         </div>
@@ -130,7 +130,7 @@
                 </div>
 
                 <div class="col no-padding ovh bl tac" ng-repeat="(day, per) in data" >
-                    <span class="ts"> {{shortDateString(day)}} </span>
+                    <span class="ts"> {{::shortDateString(day)}} </span>
                 </div>
 
             </div>
@@ -143,13 +143,13 @@
                         <div class="row no-padding">
                             <div class="col no-padding ovh bl">
                                 <div class="row ts">
-                                    <span class="ma timegrid">{{ t.name || '&nbsp;'}}</span>
+                                    <span class="ma timegrid">{{ ::t.name || '&nbsp;'}}</span>
                                 </div>
                                 <div class="row tss">
-                                    <span class="ma timegrid">{{ t.startTime.toString().slice(0, -2) + ":" + t.startTime.toString().slice(-2) || '&nbsp;'}}</span>
+                                    <span class="ma timegrid">{{ ::t.startTime.toString().slice(0, -2) + ":" + t.startTime.toString().slice(-2) || '&nbsp;'}}</span>
                                 </div>
                                 <div class="row tss">
-                                    <span class="ma timegrid">{{ t.endTime.toString().slice(0, -2) + ":" + t.endTime.toString().slice(-2) || '&nbsp;'}}</span>
+                                    <span class="ma timegrid">{{ ::t.endTime.toString().slice(0, -2) + ":" + t.endTime.toString().slice(-2) || '&nbsp;'}}</span>
                                 </div>
                             </div>
                         </div>
@@ -167,16 +167,16 @@
                                 <div class="{{lesson.cellState || 'HOUR-FREE' }}" ng-hide="lesson.empty">
 
                                     <div class="row ts">
-                                        <div style="color: {{lesson.foreColor}} !important ;background-color: {{lesson.backColor}}; " class="ts ma"> {{lesson.subject || '&nbsp;'}}</div>
+                                        <div style="color: {{::lesson.foreColor}} !important ;background-color: {{::lesson.backColor}}; " class="ts ma"> {{::lesson.subject || '&nbsp;'}}</div>
                                     </div>
                                
                                     <div class="row ts">
-                                        <span class="ma">{{lesson.room || '&nbsp;'}}</span>
+                                        <span class="ma">{{::lesson.room || '&nbsp;'}}</span>
                                     </div>
 
                                     
                                     <div class="row ts">
-                                        <span class="ma">{{lesson.e[2][0].name || '&nbsp;'}}</span>                                        
+                                        <span class="ma">{{::lesson.e[2][0].name || '&nbsp;'}}</span>                                        
                                     </div>
                                 
                                 

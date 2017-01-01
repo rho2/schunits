@@ -14,8 +14,8 @@
             <ion-item ng-repeat="lesson in data" class="c-list-item " padding="true" ng-click="lessonClick(lesson)">
 
                 <div class="row">
-                    <div class="col col-90">{{ lesson.subject || '-'}}</div>
-                    <div class="col col-10 royal">{{ lesson.teacher || '-' }}</div>
+                    <div class="col col-90">{{:: lesson.subject || '-'}}</div>
+                    <div class="col col-10 royal">{{:: lesson.teacher || '-' }}</div>
                 </div>
 
             </ion-item>

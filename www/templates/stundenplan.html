@@ -17,14 +17,14 @@
         				<div class="row no-padding">
         					<div class="col no-padding ovh bl">
         						<div class="row ts">
-        							<span class="ma">{{ t.name || '&nbsp;'}}</span>
+        							<span class="ma">{{:: t.name || '&nbsp;'}}</span>
                             	    
                             	</div>
                             	<div class="row tss">
-                            	    <span class="ma">{{ t.startTime.toString().slice(0, -2) + ":" + t.startTime.toString().slice(-2) || '&nbsp;'}}</span>
+                            	    <span class="ma">{{ ::t.startTime.toString().slice(0, -2) + ":" + t.startTime.toString().slice(-2) || '&nbsp;'}}</span>
                             	</div>
                             	<div class="row tss">
-                            	    <span class="ma">{{ t.endTime.toString().slice(0, -2) + ":" + t.endTime.toString().slice(-2) || '&nbsp;'}}</span>
+                            	    <span class="ma">{{:: t.endTime.toString().slice(0, -2) + ":" + t.endTime.toString().slice(-2) || '&nbsp;'}}</span>
                             	</div>
                             </div>
                         </div>
@@ -42,16 +42,16 @@
                                 <div class="{{lesson.cellState || 'HOUR-FREE' }}" ng-hide="lesson.empty">
 
                                     <div class="row ts">
-                                        <div style="color: {{lesson.foreColor}};background-color: {{lesson.backColor}}; " ng-if="lesson.subject" class="ts ma"> {{lesson.subject}}</div>
+                                        <div style="color: {{::lesson.foreColor}};background-color: {{::lesson.backColor}}; " ng-if="lesson.subject" class="ts ma"> {{::lesson.subject}}</div>
                                     </div>
                                
                                     <div class="row ts">
-                                        <span class="ma">{{lesson.room}}</span>
+                                        <span class="ma">{{::lesson.room}}</span>
                                     </div>
 
                                     
                                     <div class="row ts">
-                                        <span class="ma">{{lesson.e[2][0].name}}</span>                                        
+                                        <span class="ma">{{::lesson.e[2][0].name}}</span>                                        
                                     </div>
                                 
                                 

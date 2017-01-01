@@ -11,16 +11,16 @@
     <div black>
       <ion-item ng-repeat="absence in data" class="c-list-item " padding="true" ng-click="absenceClick(absence)">
   			<div class="row ">
-  				<div class="col calm col-10">{{absence.day}}</div>
-  				<div class="col calm col-33">{{absence.date}}</div>
-  				<div class="col positive">{{absence.time}}</div>
-  				<div class="col col-10 royal tar">{{absence.subject_short}}</div>
+  				<div class="col calm col-10">{{::absence.day}}</div>
+  				<div class="col calm col-33">{{::absence.date}}</div>
+  				<div class="col positive">{{::absence.time}}</div>
+  				<div class="col col-10 royal tar">{{::absence.subject_short}}</div>
   			</div>
 
   			<div class="row">
-  				<div class="col tal">{{absence.status}}</div>
+  				<div class="col tal">{{::absence.status}}</div>
 
-  				<div class="col tar">{{absence.reason}}</div>
+  				<div class="col tar">{{::absence.reason}}</div>
   			</div>
         </ion-item>
         </div>

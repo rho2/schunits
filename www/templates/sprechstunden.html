@@ -19,15 +19,15 @@
   		<ion-item ng-repeat="hour in data" class="c-list-item" padding="true" ng-click="hourClick(hour)">
   			
   			<div class="row">
-  				<div class="col col-33 royal">{{ hour.teacher }}</div>
-  				<div class="col col-66 tar">{{ hour.mail }}</div>
+  				<div class="col col-33 royal">{{:: hour.teacher }}</div>
+  				<div class="col col-66 tar">{{:: hour.mail }}</div>
   			</div>
 
   			<div class="row ">
-  				<div class="col calm tal">{{ hour.day }}</div>
-  				<div class="col calm tal">{{ hour.date }}</div>
-  				<div class="col positive tar">{{ hour.start }}</div>
-  				<div class="col positive tar">{{ hour.end }}</div>
+  				<div class="col calm tal">{{:: hour.day }}</div>
+  				<div class="col calm tal">{{ ::hour.date }}</div>
+  				<div class="col positive tar">{{:: hour.start }}</div>
+  				<div class="col positive tar">{{:: hour.end }}</div>
   			</div>
 
  		</ion-item>

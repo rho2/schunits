@@ -1,3 +1,7 @@
+#### 01.01.17
+* Performance verbessert 
+* Animation wieder auf Slide ge&auml;ndert
+---
 #### 31.12.16
 * Klassendienste k&ouml;nnen sortiert werden
 ---
@@ -33,7 +37,7 @@
 * README ge&auml;ndert
 ---
 #### 26.12.16
-* Animationen von Slide to Fade ge&aumlndert;
+* Animationen von Slide to Fade ge&auml;ndert
 * Swipe-Verhalten beim Stundenplan verbessert
 ---
 #### 25.12.16
