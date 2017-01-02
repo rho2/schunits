@@ -1,3 +1,6 @@
+#### 02.01.17
+* Hausaufgaben k&ouml;nnen automatisch dem Kalender hinzugef&uuml;gt werden.
+---
 #### 01.01.17
 * Performance verbessert 
 * Animation wieder auf Slide ge&auml;ndert

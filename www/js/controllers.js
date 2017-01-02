@@ -814,6 +814,10 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
         HomeworkService.getData(d).then(function(response) {
             $scope.data = response;
+            sort();
+            if($scope.settings.homeworkSync){
+                $scope.addAll();
+            }
         }).catch(function(error) {
             ionicToast.show(error.status + '\n' + error.statusText, 'top', false, 1000);
         }).finally(function() {
@@ -1305,7 +1309,7 @@ var addToCalender = function(title, eventLocation, notes, startDate, endDate, ca
     });    
 }
 
-var defSettings = '{"darkmode": false,"calInter": true,"examSync": false}'
+var defSettings = '{"darkmode": false,"calInter": true,"examSync": false,"homeworkSync" : false}'
 
 var defaultMenu = function(){
     return '[{"text":"Start","icon":"ion-ios-home","link":"startseite.start","class":""},{"text":"Sprechstunden","icon":"ion-ios-telephone","link":"sprechstunden","class":"menu-timetable"},{"text":"Stundenplan","icon":"ion-ios-calendar-outline","link":"startseite.stundenplanHeute","class":"menu-timetable"},{"text":"Mein Unterricht","icon":"ion-ios-bookmarks","link":"meinUnterricht","class":"menu-lesson"},{"text":"Unterricht Schüler","icon":"ion-ios-bookmarks","link":"unterrichtSchuler","class":"menu-lesson"},{"text":"Prüfungen","icon":"ion-ios-bookmarks","link":"startseite.prufungen","class":"menu-lesson"},{"text":"Tagesunterricht Klassen","icon":"ion-ios-bookmarks","link":"tagesunterrichtKlassen","class":"menu-lesson"},{"text":"Meine Abwesenheiten","icon":"ion-ios-flag","link":"meineAbwesenheiten","class":"menu-absence"},{"text":"Fehlzeiten","icon":"ion-ios-flag","link":"fehlzeiten","class":"menu-absence"},{"text":"Befreiungen","icon":"ion-ios-flag","link":"befreiungen","class":"menu-absence"},{"text":"Hausaufgaben","icon":"ion-ios-book","link":"startseite.hausaufgaben","class":"menu-classbook"},{"text":"Klassenbucheinträge","icon":"ion-ios-book","link":"klassenbucheintrage","class":"menu-classbook"},{"text":"Klassendienste","icon":"ion-ios-book","link":"klassendienste","class":"menu-classbook"}]';
