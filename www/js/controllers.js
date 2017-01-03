@@ -690,7 +690,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
 .controller('klassenbucheintrageCtrl', function($scope, $stateParams) {})
 
-.controller('hausaufgabenCtrl', function($scope, $state,$ionicActionSheet, HomeworkService, ionicToast, DateChoiceService) {
+.controller('hausaufgabenCtrl', function($scope, $state,$ionicActionSheet,$ionicModal, HomeworkService, ionicToast, DateChoiceService) {
 
     DateChoiceService.set($scope, 'CURRENT_WEEK');
 
@@ -702,6 +702,7 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     var getButtons = function(){
         return [
             { text: '<i class="icon ion-ios-calendar-outline"></i> Alle in Kalender' },
+            { text: '<i class="icon ion-ios-plus-outline"></i> Hausaufgabe hinzufügen' },
             { text: '<i class="icon ' + $scope.getIcon(0) + '"></i>Nach Aufgabedatum sortieren'},
             { text: '<i class="icon ' + $scope.getIcon(1) + '"></i>Nach Abgabedatum sortieren'},
             { text: '<i class="icon ' + $scope.getIcon(2) + '"></i>Nach Fach sortieren'}
@@ -738,6 +739,33 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
             startDate: start,
             endDate: end
         }
+    }
+
+    $ionicModal.fromTemplateUrl('templates/create/hausaufgaben.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modal = modal;
+        console.log(modal)
+    });
+    $scope.nH = {};
+
+    $scope.ownH = JSON.parse(localStorage.ownHomework || '[]')
+
+    $scope.create  = function(){
+
+        var nH = $scope.nH
+
+        nH.start = dateString2(nH.startDate)
+        nH.end = dateString2(nH.endDate)
+
+        delete nH.startDate
+        delete nH.endDate
+
+        $scope.data.push(nH)
+
+        $scope.ownH.push(nH)
+
+        localStorage.ownHomework = JSON.stringify($scope.ownH)
     }
 
     $scope.addToCalender = function(h){
@@ -794,8 +822,11 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
                 case 0:
                     $scope.addAll()
                     break;
+                case 1:
+                    $scope.modal.show()
+                    break;
                 default:
-                    $scope.sort = index - 1;
+                    $scope.sort = index - 2;
                     sort();
                     break;
             }
@@ -813,7 +844,15 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         var d = $scope.getParam();
 
         HomeworkService.getData(d).then(function(response) {
-            $scope.data = response;
+            $scope.data = response || [];
+
+            if($scope.data.push){
+                $scope.data.push.apply($scope.data,$scope.ownH)
+            }
+            else{
+                $scope.data = $scope.ownH
+            }
+
             sort();
             if($scope.settings.homeworkSync){
                 $scope.addAll();
@@ -825,7 +864,14 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         });
     };
 
-    $scope.data = JSON.parse(localStorage.c_homework || '{}')
+    $scope.data = JSON.parse(localStorage.c_homework || '[]')
+    if($scope.data.push){
+        $scope.data.push.apply($scope.data,$scope.ownH)
+    }
+    else{
+        $scope.data = $scope.ownH
+    }
+    
     $scope.reload();
 })
 
@@ -1265,6 +1311,17 @@ var dateString = function(date){
 	return ('' + date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + date.getDate()).slice(-2));
 }
 
+var dateString2 = function(date){
+    var d = weekDays[date.getDay()] 
+    d += ' '
+    d += ('0' + date.getDate()).slice(-2)
+    d += '.'
+    d += ('0' + (date.getMonth()+1)).slice(-2)
+    d += '.20'
+    d += ('0' + date.getFullYear()).slice(-2)
+    return d
+}
+
 var addDays = function(date, d) {
 	return date.setDate(date.getDate() + d);
 }
@@ -1309,11 +1366,14 @@ var addToCalender = function(title, eventLocation, notes, startDate, endDate, ca
     });    
 }
 
+var weekDays = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
+
 var defSettings = '{"darkmode": false,"calInter": true,"examSync": false,"homeworkSync" : false}'
 
 var defaultMenu = function(){
     return '[{"text":"Start","icon":"ion-ios-home","link":"startseite.start","class":""},{"text":"Sprechstunden","icon":"ion-ios-telephone","link":"sprechstunden","class":"menu-timetable"},{"text":"Stundenplan","icon":"ion-ios-calendar-outline","link":"startseite.stundenplanHeute","class":"menu-timetable"},{"text":"Mein Unterricht","icon":"ion-ios-bookmarks","link":"meinUnterricht","class":"menu-lesson"},{"text":"Unterricht Schüler","icon":"ion-ios-bookmarks","link":"unterrichtSchuler","class":"menu-lesson"},{"text":"Prüfungen","icon":"ion-ios-bookmarks","link":"startseite.prufungen","class":"menu-lesson"},{"text":"Tagesunterricht Klassen","icon":"ion-ios-bookmarks","link":"tagesunterrichtKlassen","class":"menu-lesson"},{"text":"Meine Abwesenheiten","icon":"ion-ios-flag","link":"meineAbwesenheiten","class":"menu-absence"},{"text":"Fehlzeiten","icon":"ion-ios-flag","link":"fehlzeiten","class":"menu-absence"},{"text":"Befreiungen","icon":"ion-ios-flag","link":"befreiungen","class":"menu-absence"},{"text":"Hausaufgaben","icon":"ion-ios-book","link":"startseite.hausaufgaben","class":"menu-classbook"},{"text":"Klassenbucheinträge","icon":"ion-ios-book","link":"klassenbucheintrage","class":"menu-classbook"},{"text":"Klassendienste","icon":"ion-ios-book","link":"klassendienste","class":"menu-classbook"}]';
 }
+
 
 var pDate = function(d){
     var parts = d.split(".");

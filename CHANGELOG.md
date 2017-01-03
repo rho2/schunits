@@ -1,3 +1,6 @@
+#### 03.01.17
+* Eigene Hausaufgaben k&ouml;nnen erstellt werden.
+---
 #### 02.01.17
 * Hausaufgaben k&ouml;nnen automatisch dem Kalender hinzugef&uuml;gt werden.
 ---
