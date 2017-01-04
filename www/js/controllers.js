@@ -1225,11 +1225,16 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 .controller('sonstigesCtrl', function($scope, $stateParams, LoggingService, ionicToast) {
 
     $scope.sendLog = function(){
+        console.log('send')
         LoggingService.get().then(function(response) {
            
-            console.log(response)
-            var link = 'mailto:schunits@rho2.eu?subject=Log+Datei&body=' + encodeURIComponent(response) 
-            window.open(link, '_system', 'location=yes');
+            cordova.plugins.email.open({
+                to:          'schunits@rho2.eu', 
+                attachments: response, 
+                subject:    'Log-Datei', 
+                body:       '<b>Beschreibung des Fehlers:</b><br>',
+                isHtml:    true
+            });
         });
     }
 

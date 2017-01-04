@@ -1,4 +1,4 @@
-angular.module('app.services', ['ionic', 'fileLogger'])
+angular.module('app.services', ['ionic'])
 
 .service('HomeworkService', function($http, $q, LoggingService, LoginService) {
     return {
@@ -15,15 +15,13 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                     var headers = ["start", "end", "subject", "teacher", "text"];
                     var table = parseTable(response, headers, "list");
                 } catch (err) {
-                    LoggingService.log('error', JSON.stringify(err))
-                    LoggingService.log('error', JSON.stringify(response))
-                    LoggingService.log('error', '')
+                    LoggingService.log('error', JSON.stringify(err) + '\n' + JSON.stringify(response))
+
                 }
                 localStorage.c_homework = JSON.stringify(table) || '{}';
                 deferred.resolve(table);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
-                LoggingService.log('error', '')
                 deferred.reject(response);
             });
             return deferred.promise;
@@ -52,15 +50,13 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['subject_short'] = getOnlyText(a[1])
                     }
                 } catch (err) {
-                    LoggingService.log('error', JSON.stringify(err))
-                    LoggingService.log('error', JSON.stringify(response))
-                    LoggingService.log('error', '')
+                    LoggingService.log('error', JSON.stringify(err) + '\n' + JSON.stringify(response))
+
                 }
-                localStorage.c_exam = JSON.stringify(data) || '{}' ;
+                localStorage.c_exam = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
-                LoggingService.log('error', '')
                 deferred.reject(response);
             });
             return deferred.promise;
@@ -87,15 +83,14 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['mail'] = getOnlyText(data[i]['mail'])
                     }
                 } catch (err) {
-                    LoggingService.log('error', JSON.stringify(err))
-                    LoggingService.log('error', JSON.stringify(response))
-                    LoggingService.log('error', '')
+                    LoggingService.log('error', JSON.stringify(err) + '\n' + JSON.stringify(response))
+
                 }
                 localStorage.c_office_hour = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
-                LoggingService.log('error', '')
+
                 deferred.reject(response);
             });
             return deferred.promise;
@@ -126,15 +121,14 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['subject_short'] = getOnlyText(b[1])
                     }
                 } catch (err) {
-                    LoggingService.log('error', JSON.stringify(err))
-                    LoggingService.log('error', JSON.stringify(response))
-                    LoggingService.log('error', '')
+                    LoggingService.log('error', JSON.stringify(err) + '\n' + JSON.stringify(response))
+
                 }
                 localStorage.c_lesson_list = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
-                LoggingService.log('error', '')
+
                 deferred.reject(response);
             });
             return deferred.promise;
@@ -165,15 +159,14 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['subject_short'] = getOnlyText(b[1])
                     }
                 } catch (err) {
-                    LoggingService.log('error', JSON.stringify(err))
-                    LoggingService.log('error', JSON.stringify(response))
-                    LoggingService.log('error', '')
+                    LoggingService.log('error', JSON.stringify(err) + '\n' + JSON.stringify(response))
+
                 }
                 localStorage.c_lesson_student = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
-                LoggingService.log('error', '')
+
                 deferred.reject(response);
             });
             return deferred.promise;
@@ -210,15 +203,14 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['room'] = getOnlyText(data[i]['room'])
                     }
                 } catch (err) {
-                    LoggingService.log('error', JSON.stringify(err))
-                    LoggingService.log('error', JSON.stringify(response))
-                    LoggingService.log('error', '')
+                    LoggingService.log('error', JSON.stringify(err) + '\n' + JSON.stringify(response))
+
                 }
                 localStorage.c_lesson_klasse = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
-                LoggingService.log('error', '')
+
                 deferred.reject(response);
             });
             return deferred.promise;
@@ -251,15 +243,14 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['icon'] = icons[c]
                     }
                 } catch (err) {
-                    LoggingService.log('error', JSON.stringify(err))
-                    LoggingService.log('error', JSON.stringify(response))
-                    LoggingService.log('error', '')
+                    LoggingService.log('error', JSON.stringify(err) + '\n' + JSON.stringify(response))
+
                 }
                 localStorage.c_class_service = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
-                LoggingService.log('error', '')
+
                 deferred.reject(response);
             });
             return deferred.promise;
@@ -293,15 +284,14 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['counts'] = b
                     }
                 } catch (err) {
-                    LoggingService.log('error', JSON.stringify(err))
-                    LoggingService.log('error', JSON.stringify(response))
-                    LoggingService.log('error', '')
+                    LoggingService.log('error', JSON.stringify(err) + '\n' + JSON.stringify(response))
+
                 }
                 localStorage.c_absence_times = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
-                LoggingService.log('error', '')
+
                 deferred.reject(response);
             });
             return deferred.promise;
@@ -330,15 +320,14 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         data[i]['typ'] = getOnlyText(a[0])
                     }
                 } catch (err) {
-                    LoggingService.log('error', JSON.stringify(err))
-                    LoggingService.log('error', JSON.stringify(response))
-                    LoggingService.log('error', '')
+                    LoggingService.log('error', JSON.stringify(err) + '\n' + JSON.stringify(response))
+
                 }
                 localStorage.c_absence_list = JSON.stringify(data) || '{}';
                 deferred.resolve(data);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
-                LoggingService.log('error', '')
+
                 deferred.reject(response);
             });
             return deferred.promise;
@@ -397,7 +386,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
 
                 var timegridEnd = {};
                 for (i in units) {
-                        timegridEnd[units[i].endTime] = units[i];
+                    timegridEnd[units[i].endTime] = units[i];
                 }
                 localStorage.timegridEnd = JSON.stringify(timegridEnd);
             });
@@ -428,7 +417,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
 
             date = getMonday(date)
             var d = dateString(date)
-            
+
             $http({
                 method: 'POST',
                 url: 'https://arche.webuntis.com/WebUntis/Timetable.do',
@@ -449,7 +438,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                     //zweiter Index ist die Spalte, in der die Stunde stattfindet
                     var periods = {};
                     var elem = {};
-                    
+
                     var header = ['', 'class_name', 'teacher', 'subject', 'room']
                     var headerl = ['', 'class_name_long', 'teacher_long', 'subject_long', 'room_long']
 
@@ -461,23 +450,23 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                         }
                         elem[e[i].id][e[i].type] = e[i];
                     }
-                    
+
                     for (var i = 0; i < p.length; i++) {
                         try {
                             var start = timegrid[p[i].startTime].name;
                             var end = timegridEnd[p[i].endTime].name;
                             var span = parseInt(end) - parseInt(start);
-                    
+
                             if (!periods[p[i].date]) {
                                 periods[p[i].date] = []
                             }
-                    
+
                             p[i].e = [];
                             p[i].start = p[i].startTime.toString().slice(0, -2) + ":" + p[i].startTime.toString().slice(-2);
                             p[i].end = p[i].endTime.toString().slice(0, -2) + ":" + p[i].endTime.toString().slice(-2);
                             p[i].endi = parseInt(end);
                             p[i].span = span;
-                    
+
                             //Gehe alle Elemente (Klassen, Lehrer, Fach, Raum) durch
                             for (var j = 0; j < p[i].elements.length; j++) {
                                 //Elememt, das gerade bearbeitet wird aus dem elem-Array laden
@@ -485,14 +474,14 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                                 //Setzen der Forder- und Hintergrundfarbe
                                 p[i].backColor = (p[i].elements[j].backColor || p[i].backColor);
                                 p[i].foreColor = (p[i].elements[j].foreColor || p[i].foreColor);
-                                
+
                                 //wenn noch nicht vorhanden, setze displayname, ansonsten haenge in hinten an
                                 if (typeof p[i][header[p[i].elements[j].type]] === "undefined") {
                                     p[i][header[p[i].elements[j].type]] = p[i].elements[j].displayname;
                                 } else {
                                     p[i][header[p[i].elements[j].type]] += ',' + p[i].elements[j].displayname;
                                 }
-                    
+
                                 if (!p[i].e[p[i].elements[j].type]) {
                                     p[i].e[p[i].elements[j].type] = []
                                 }
@@ -508,14 +497,15 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                                 }
                                 periods[p[i].date][start + j].push(p[i]);
                             }
-                        } catch (err) {
-                        }
+                        } catch (err) {}
                     }
                     for (pa in periods) {
                         for (var i = 0; i < periods[pa].length; i++) {
                             //falls Stunde leer ist, mit leerem Dummy Objekt fuellen
                             if (!periods[pa][i]) {
-                                periods[pa][i] = [{empty: 'empty'}]
+                                periods[pa][i] = [{
+                                    empty: 'empty'
+                                }]
                             } else {
                                 for (ind in periods[pa][i]) {
                                     //ersetze alle anderen Stunden, wenn die Stunde 'is.event' und 'is.additional'
@@ -527,7 +517,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                             }
                         }
                     }
-                    
+
                     //Wenn Array leer ist, fuelle Array mit Ferien-Dummy Elementen
                     if (p.length == 0) {
                         var emp = {
@@ -537,7 +527,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
                             class_name: '-',
                             cellState: 'HOLIDAY'
                         };
-                    
+
                         periods[dateString(date)] = {}
                         for (var i = 0; i <= Object.keys(timegrid).length; i++) {
                             periods[dateString(date)][i] = emp;
@@ -545,15 +535,14 @@ angular.module('app.services', ['ionic', 'fileLogger'])
 
                     }
                 } catch (err) {
-                    LoggingService.log('error', JSON.stringify(err))
-                    LoggingService.log('error', JSON.stringify(response))
-                    LoggingService.log('error', '')
+                    LoggingService.log('error', JSON.stringify(err) + '\n' + JSON.stringify(response))
+
                 }
-                localStorage['c_timetable_'+d] = JSON.stringify(periods) || '{}';
+                localStorage['c_timetable_' + d] = JSON.stringify(periods) || '{}';
                 deferred.resolve(periods);
             }, function(response) {
                 LoggingService.log('error', JSON.stringify(response))
-                LoggingService.log('error', '')
+
                 deferred.reject(response);
             });
             return deferred.promise;
@@ -659,33 +648,38 @@ angular.module('app.services', ['ionic', 'fileLogger'])
     }
 })
 
-.service('LoggingService', function($fileLogger, $timeout, $http, $q) {
+.service('LoggingService', function($timeout, $http, $q) {
     return {
         log: function(l, m) {
-            $fileLogger.setTimestampFormat('medium');
-            $fileLogger.log(l, m);
+            if (!cordova.file) {
+                return;
+            }
+
+            console.log(m)
+            var pathToFile = cordova.file.externalDataDirectory + 'log.txt';
+
+            window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(directoryEntry) {
+                directoryEntry.getFile('log.txt', {
+                    create: true
+                }, function(fileEntry) {
+                    fileEntry.createWriter(function(fileWriter) {
+
+                        fileWriter.onwriteend = function(e) {};
+                        fileWriter.onerror = function(e) {};
+
+                        fileWriter.seek(fileWriter.length);
+                        fileWriter.write('[' + (l || 'error') + ']' + '\t' + m + '\n');
+
+                    }, function(e) {});
+                }, function(e) {});
+            }, function(e) {});
         },
 
         get: function() {
             var deferred = $q.defer();
 
-            $timeout(function() {
-                $fileLogger.getLogfile().then(function(l) {
-                    deferred.resolve(l);
-                });
-            }, 1000);
-
-            return deferred.promise;
-        },
-
-        checkFile: function(){
-            var deferred = $q.defer();
-
-            $timeout(function(){
-              $fileLogger.checkFile().then(function(d) {
-                deferred.resolve(d);
-              });
-            }, 2000);
+            var pathToFile = cordova.file.externalDataDirectory + 'log.txt';
+            deferred.resolve(pathToFile);
 
             return deferred.promise;
         },
@@ -693,12 +687,20 @@ angular.module('app.services', ['ionic', 'fileLogger'])
         del: function() {
             var deferred = $q.defer();
 
-            $timeout(function() {
-                $fileLogger.deleteLogfile().then(function() {
-                        var a = ''
-                     deferred.resolve(a);
-                });
-            }, 3000);
+            var pathToFile = cordova.file.externalDataDirectory + 'log.txt';
+
+            window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(directoryEntry) {
+                directoryEntry.getFile('log.txt', {
+                    create: true
+                }, function(fileEntry) {
+
+
+                    fileEntry.remove(function() {
+                        deferred.resolve('');
+                    }, function(e) {});
+
+                }, function(e) {});
+            }, function(e) {});
 
             return deferred.promise;
         },
@@ -725,7 +727,7 @@ angular.module('app.services', ['ionic', 'fileLogger'])
             scope.choice = {
                 value: def
             };
-            
+
             var d1 = getMonday(new Date())
             var d2 = new Date();
             d2.setDate(d1.getDate() + 6);
@@ -815,17 +817,18 @@ var parseTable = function(response, headers, class_name, use_title = true) {
 }
 
 var getMonday = function(date) {
-    var day = date.getDay() || 7;  
-    if( day !== 1 ) 
-        date.setHours(-24 * (day - 1)); 
+    var day = date.getDay() || 7;
+    if (day !== 1)
+        date.setHours(-24 * (day - 1));
     return date;
 }
 
-var dateString = function(date){
+var dateString = function(date) {
     return ('' + date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + date.getDate()).slice(-2));
 }
 
 var formEncHeader = {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'Accept': '*/*'}
+    'X-Requested-With': 'XMLHttpRequest',
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Accept': '*/*'
+}

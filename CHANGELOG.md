@@ -1,3 +1,6 @@
+#### 04.01.17
+* Logging ge&auml;ndert
+---
 #### 03.01.17
 * Eigene Hausaufgaben k&ouml;nnen erstellt werden.
 ---
