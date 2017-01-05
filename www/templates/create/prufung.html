@@ -1,0 +1,59 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Neue Pr&uuml;fung</h1>
+        <button class="button button-clear button-primary" ng-click="modal.hide()">Abbrechen</button>
+    </ion-header-bar>
+
+    <ion-content class="padding">
+        <div class="list">
+
+            <label class="item item-input">
+              <input type="text" placeholder="Klassenname" ng-model="nE.class_name">
+            </label>          
+
+            <label class="item item-input">
+              <input type="text" placeholder="Datum" ng-model="nE.date">
+            </label>
+
+            <label class="item item-input">
+              <input type="text" placeholder="Startzeit" ng-model="nE.start">
+            </label>  
+
+            <label class="item item-input">
+              <input type="text" placeholder="Endzeit" ng-model="nE.end">
+            </label>  
+
+            <label class="item item-input">
+              <input type="text" placeholder="Fach" ng-model="nE.subject">
+            </label>  
+
+            <label class="item item-input">
+              <input type="text" placeholder="Fach Abk." ng-model="nE.subject_short">
+            </label>  
+
+            <label class="item item-input">
+              <input type="text" placeholder="Lehrer" ng-model="nE.teacher">
+            </label>  
+
+            <label class="item item-input">
+              <input type="text" placeholder="Raum" ng-model="nE.room">
+            </label>  
+
+            <label class="item item-input">
+              <input type="text" placeholder="Typ" ng-model="nE.typ">
+            </label>
+
+            <label class="item item-input">
+              <input type="text" placeholder="Name" ng-model="nE.name">
+            </label>  
+
+            <label class="item item-input">
+              <input type="text" placeholder="Text" ng-model="nE.text">
+            </label> 
+
+            <button class="button button-full button-positive" ng-click="create()">Erstellen</button>
+        
+        </div>
+    </ion-content>
+</ion-modal-view>

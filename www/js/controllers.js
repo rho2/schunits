@@ -179,14 +179,30 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     $scope.reload();
 })
 
-.controller('stundenplanDetailCtrl', function($scope, $stateParams, $state, $ionicViewSwitcher, $ionicHistory, $ionicPlatform, TimetableService) {
+.controller('stundenplanDetailCtrl', function($scope, $stateParams, $state, $ionicViewSwitcher, $ionicHistory, $ionicPlatform,$ionicModal, TimetableService) {
     $scope.showClasses = false;
     $scope.showRooms = false;
+
+    $ionicModal.fromTemplateUrl('templates/create/prufung.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+    $scope.nE = {};
+
+    $scope.create  = function(){
+        $scope.ownE = JSON.parse(localStorage.ownExam || '[]')
+        $scope.ownE.push($scope.nE)
+        localStorage.ownExam = JSON.stringify($scope.ownE)
+        $scope.modal.hide();
+    }
 
     $scope.$on("$ionicView.beforeEnter", function(event, data) {
         $scope.lesson = TimetableService.selectedLesson;
 
-        console.log($scope.lesson)
+        var lesson = $scope.lesson;
+
+        console.log(lesson)
 
         var h = document.getElementsByTagName('ion-header-bar')[0]
         $scope.savedBack = h.style.backgroundColor;
@@ -194,6 +210,20 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
         $scope.showClasses = false;
         $scope.showRooms = false;
+
+        var d = lesson.date + '';
+
+        $scope.nE = {
+            class_name: lesson.class_name,
+            date: d.substring(6,8) + '.' +  d.substring(4,6) + '.' + d.substring(0,4),
+            start: lesson.start,
+            end: lesson.end,
+            subject: lesson.e[3][0].longName,
+            subject_short: lesson.subject,
+            teacher: lesson.e[2][0].name,
+            room: lesson.e[4][0].name
+        }
+
     });
 
     $scope.goBack = function() {
@@ -208,6 +238,10 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
     }
     $scope.toggleRooms = function() {
         $scope.showRooms = !$scope.showRooms;
+    }
+
+    $scope.addExam = function() {
+
     }
 
     $ionicPlatform.onHardwareBackButton(function() {
@@ -534,7 +568,16 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         var d = $scope.getParam();
 
         ExamService.getData(d).then(function(response) {
-            $scope.data = response;
+            $scope.data = response  || [];
+            $scope.ownE = JSON.parse(localStorage.ownExam || '[]')
+
+            if($scope.data.push){
+                $scope.data.push.apply($scope.data,$scope.ownE)
+            }
+            else{
+                $scope.data = $scope.ownE
+            }
+
             sort();
             if($scope.settings.examSync){
                 $scope.addAll();
@@ -548,7 +591,14 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
         });
     }
 
-    $scope.data = JSON.parse(localStorage.c_exam || '{}')
+    $scope.ownE = JSON.parse(localStorage.ownExam || '[]')
+    $scope.data = JSON.parse(localStorage.c_exam || '[]')
+    if($scope.data.push){
+        $scope.data.push.apply($scope.data,$scope.ownE)
+    }
+    else{
+        $scope.data = $scope.ownE
+    }
     $scope.reload()
 })
 
