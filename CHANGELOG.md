@@ -1,3 +1,6 @@
+#### 06.01.17
+* Updates k&ouml;nnen nun direkt in der App installiert werden.
+---
 #### 05.01.17
 * Eigene Pr&uuml;fungen k&ouml;nnen erstellt werden.
 ---
