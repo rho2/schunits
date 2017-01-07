@@ -2,16 +2,16 @@ angular.module('app.routes', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-$stateProvider
-      .state('startseite.start', {
-    url: '/start',
-    views: {
-      'tab1': {
-        templateUrl: 'templates/start.html',
-        controller: 'startCtrl'
+  $stateProvider
+    .state('startseite.start', {
+      url: '/start',
+      views: {
+        'tab1': {
+          templateUrl: 'templates/start.html',
+          controller: 'startCtrl'
+        }
       }
-    }
-  })
+    })
 
   .state('stundenplanDetail', {
     url: '/timetable/details',
@@ -44,7 +44,7 @@ $stateProvider
   .state('startseite', {
     url: '/main',
     templateUrl: 'templates/startseite.html',
-    abstract:true
+    abstract: true
   })
 
   .state('meinUnterricht', {
@@ -217,8 +217,8 @@ $stateProvider
     controller: 'peopleCtrl'
   })
 
-$urlRouterProvider.otherwise('/main/timetableToday')
+  $urlRouterProvider.otherwise('/main/timetableToday')
 
-  
+
 
 });

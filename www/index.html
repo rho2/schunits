@@ -17,10 +17,10 @@
     <script src="js/services.js"></script>
      <script src="lib/ionic-toast/dist/ionic-toast.bundle.min.js"></script>
      <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
-     
+
     <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
-    <!-- Only required for Tab projects w/ pages in multiple tabs 
+    <!-- Only required for Tab projects w/ pages in multiple tabs
     <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
     -->
 
@@ -31,16 +31,16 @@
         <ion-side-menus>
             <ion-side-menu-content drag-content="true">
                 <ion-nav-bar id='navbar'><!-- <ion-nav-bar class="bar-stable" id='navbar'> -->
-                    
+
                     <ion-nav-buttons side="left">
                         <button class="button button-icon ion-navicon" menu-toggle="left" id='menu-button'></button>
                         <!-- <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button> -->
                     </ion-nav-buttons>
-                    
+
                 </ion-nav-bar>
 
                 <ion-nav-view>
-                    
+
                 </ion-nav-view>
             </ion-side-menu-content>
 
@@ -53,15 +53,13 @@
                     <div black>
                     <ion-list on-swipe-right="swipeRight()" on-swipe-left="swipeLeft()">
 
-                        
+
                             <ion-item class="item-icon-left" ui-sref="{{item.link}}" ng-class="item.class" menu-close="" ng-repeat="item in items">
                                 <i class="icon {{item.icon}}"></i>{{item.text}}
                                 <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
                                 <ion-delete-button class="ion-minus-circled" ng-click="delItem(item)"></ion-delete-button>
                             </ion-item>
                         
-
-
                         <ion-item class="item-icon-left" ui-sref="sonstiges" menu-close="" >
                             <i class="icon ion-cube"></i>Sonstiges
                         </ion-item>

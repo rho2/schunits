@@ -1,3 +1,6 @@
+#### 07.01.17
+* kleinere &Auml;nderungen am code
+---
 #### 06.01.17
 * Updates k&ouml;nnen nun direkt in der App installiert werden.
 ---
@@ -14,7 +17,7 @@
 * Hausaufgaben k&ouml;nnen automatisch dem Kalender hinzugef&uuml;gt werden.
 ---
 #### 01.01.17
-* Performance verbessert 
+* Performance verbessert
 * Animation wieder auf Slide ge&auml;ndert
 ---
 #### 31.12.16

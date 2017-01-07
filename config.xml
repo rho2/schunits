@@ -52,5 +52,5 @@
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="https://github.com/Telerik-Verified-Plugins/NativePageTransitions" />
     <plugin name="cordova-plugin-email" spec="~1.2.6" />
     <plugin name="cordova-plugin-code-push" spec="~1.9.2-beta" />
-    <preference name="CodePushDeploymentKey" value="YOUR-KEY" />
+    <preference name="CodePushDeploymentKey" value="YoUWevRyumTZDZAtjJGDhiRVy_9tN1cdI0urz" />
 </widget>
