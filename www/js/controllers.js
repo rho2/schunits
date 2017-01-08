@@ -1347,6 +1347,17 @@ angular.module('app.controllers', ['ionic', 'app.services', 'ionic-toast', 'ioni
 
 .controller('infoCtrl', function($scope, $stateParams) {
   loadSettings($scope);
+
+  cordova.getAppVersion.getVersionNumber(function (version) {
+    $scope.version = version;
+  });
+
+  codePush.getCurrentPackage(function (update) {
+    $scope.update = update || 0;
+    console.log(update)
+});
+
+
 })
 
 .controller('AppController', function($scope, $stateParams) {

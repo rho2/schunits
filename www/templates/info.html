@@ -4,6 +4,20 @@
 
     <ion-list>
       
+      <ion-item class="item-divider" item-black >
+        <div class="row">
+          <div class="col">Version</div>
+          <div class="col tar">{{version}}</div>
+        </div>
+      </ion-item>
+   
+      <ion-item class="item-divider" item-black >
+        <div class="row">
+          <div class="col">Update</div>
+          <div class="col tar">{{update.label || 'v0'}}</div>
+        </div>
+      </ion-item>
+
       <ion-item class="item-divider" item-black >Entwickler</ion-item>
       
       <ion-item class="item-icon-left" item-black  onclick="window.open('https://rho2.eu', '_system', 'location=yes'); return false;">
@@ -92,6 +106,22 @@
             <div class="col col-20 ovh tar">MIT</div>
           </div>
       </div>
+
+      <div class="item item-divider" item-black onclick="window.open('https://github.com/whiteoctober/cordova-plugin-app-version', '_system', 'location=yes'); return false;">
+          <div class="row">
+            <div class="col ovh">Cordova AppVersion plugin</div>
+            <div class="col col-20 ovh tar">MIT</div>
+          </div>
+      </div>
+
+      <div class="item item-divider" item-black onclick="window.open('https://github.com/litehelpers/Cordova-sqlite-storage', '_system', 'location=yes'); return false;">
+          <div class="row">
+            <div class="col ovh">Cordova-sqlite-storage</div>
+            <div class="col col-20 ovh tar">MIT</div>
+          </div>
+      </div>
+
+
 
       <div class="h10" item-black></div>
 

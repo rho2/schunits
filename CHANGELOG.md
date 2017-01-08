@@ -1,3 +1,7 @@
+#### 08.01.17
+* SQL-Plugin hinzugef&uuml;gt
+* Versions und Update Nummern werden auf der &Uuml;ber-Seite angezeigt
+---
 #### 07.01.17
 * kleinere &Auml;nderungen am code
 ---
@@ -47,7 +51,7 @@
 * Pr&uuml;fung hat per Swipe nach links in den Kalender hinzugef&uuml;gt werden
 ---
 #### 27.12.16
-* QR-Code Scan beim Login inzugef&uuml;gt
+* QR-Code Scan beim Login hinzugef&uuml;gt
 ---
 #### 26.12.16
 * Menu-Reihenfolge kann ge&auml;ndert werden (swipe nach links) und Elemente entfernt werden (swipe nach rechts)
